@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Security
+namespace NArchitecture
 {
     public interface IAuthorizationService
     {
