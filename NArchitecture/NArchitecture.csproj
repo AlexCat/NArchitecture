@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -42,17 +46,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus.cs" />
+    <Compile Include="BusOptions.cs" />
+    <Compile Include="BusServiceCollectionExtensions.cs" />
+    <Compile Include="Events\DefaultEventService.cs" />
+    <Compile Include="Events\EventHandler.cs" />
+    <Compile Include="Events\IEventService.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="IBus.cs" />
-    <Compile Include="IEvent.cs" />
-    <Compile Include="IHandle.cs" />
-    <Compile Include="IHandleEvent.cs" />
-    <Compile Include="IHandleRequest.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Requests\DefaultRequestService.cs" />
+    <Compile Include="Requests\IRequestHandler.cs" />
     <Compile Include="IMessage.cs" />
-    <Compile Include="IRequest.cs" />
-    <Compile Include="IServiceProviderExtensions.cs" />
-    <Compile Include="MessageHandler.cs" />
+    <Compile Include="Requests\IRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\IRequestService.cs" />
+    <Compile Include="Requests\RequestHandler.cs" />
+    <Compile Include="Requests\RequestHandlerContext.cs" />
     <Compile Include="Security\AuthorizationHandlerContext.cs" />
     <Compile Include="Security\AuthorizationHandler.cs" />
     <Compile Include="Security\AuthorizationOptions.cs" />
@@ -62,7 +72,11 @@
     <Compile Include="Security\IAuthorizationHandler.cs" />
     <Compile Include="Security\IAuthorizationService.cs" />
     <Compile Include="Security\IAuthorizationRequirement.cs" />
-    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="Validation\DefaultValidationService.cs" />
+    <Compile Include="Validation\IValidationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

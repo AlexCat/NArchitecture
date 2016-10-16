@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NArchitecture
+﻿namespace NArchitecture
 {
     public interface IMessage
     {

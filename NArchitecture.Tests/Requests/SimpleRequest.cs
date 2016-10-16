@@ -1,8 +1,12 @@
-﻿using NArchitecture;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NArchitecture.Tests
+namespace NArchitecture.Tests.Requests
 {
-    internal class SimpleRequest : IRequest
+    public class SimpleRequest : IRequest
     {
     }
 }

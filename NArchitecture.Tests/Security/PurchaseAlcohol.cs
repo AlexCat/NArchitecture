@@ -3,7 +3,7 @@
 namespace NArchitecture.Tests.Security
 {
     [Authorize("Over21")]
-    public class DrinkAlcohol : IMessage
+    public class PurchaseAlcohol : IMessage
     {
     }
 }

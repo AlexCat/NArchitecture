@@ -1,20 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace NArchitecture
 {
     public interface IBus
     {
-        Task Send(
-            IEvent @event, 
-            CancellationToken cancellationToken = default(CancellationToken));
-
-        Task Send(
-            IRequest request,
-            CancellationToken cancellationToken = default(CancellationToken));
-
-        Task<TResponse> Send<TResponse>(
-            IRequest<TResponse> request,
-            CancellationToken cancellationToken = default(CancellationToken));
+        Task Notify(IEvent @event);
+        Task Request(IRequest request);
+        Task<TResponse> Request<TResponse>(IRequest<TResponse> request);
     }
 }

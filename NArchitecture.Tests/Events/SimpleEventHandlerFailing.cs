@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 
 namespace NArchitecture.Tests.Events
 {
-    public class SimpleEventHandler : EventHandler<SimpleEvent>
+    public class SimpleEventHandlerFailing : EventHandler<SimpleEvent>
     {
         protected override Task Handle(SimpleEvent @event)
         {
-            return Task.FromResult(0);
+            throw new System.InvalidOperationException();
         }
     }
 }

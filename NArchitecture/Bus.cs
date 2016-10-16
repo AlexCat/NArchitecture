@@ -1,57 +1,34 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace NArchitecture
 {
     public class Bus : IBus
     {
-        private readonly IServiceProvider serviceProvider;
+        private readonly IEventService eventService;
+        private readonly IRequestService requestService;
 
-        public Bus(IServiceProvider serviceProvider)
+        public Bus(IEventService eventService, IRequestService requestService)
         {
-            this.serviceProvider = serviceProvider;
+            Guard.AgainstNull(nameof(eventService), eventService);
+            Guard.AgainstNull(nameof(requestService), requestService);
+
+            this.eventService = eventService;
+            this.requestService = requestService;
         }
 
-        [DebuggerStepThrough, DebuggerHidden]
-        public virtual async Task Send(IEvent @event, CancellationToken cancellationToken)
+        public Task Notify(IEvent @event)
         {
-            Guard.AgainstNull(nameof(@event), @event);
-            Validate(@event);
-            var messageType = @event.GetType();
-            var handlers = serviceProvider.GetEventHandlers(messageType, this);
-            foreach (var handler in handlers)
-            {
-                await handler.Handle(@event, cancellationToken);
-            }
+            return eventService.Handle(this, @event);
         }
 
-        [DebuggerStepThrough, DebuggerHidden]
-        public virtual async Task Send(IRequest request, CancellationToken cancellationToken)
+        public Task Request(IRequest request)
         {
-            Guard.AgainstNull(nameof(request), request);
-            Validate(request);
-            var requestType = request.GetType();
-            var handler = serviceProvider.GetRequestHandler(requestType, this);
-            await handler.Handle(request, cancellationToken);
+            return requestService.Send(this, request);
         }
 
-        [DebuggerStepThrough, DebuggerHidden]
-        public virtual async Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken)
+        public Task<TResponse> Request<TResponse>(IRequest<TResponse> request)
         {
-            Guard.AgainstNull(nameof(request), request);
-            Validate(request);
-            var requestType = request.GetType();
-            var handler = serviceProvider.GetRequestHandler<TResponse>(requestType, this);
-            return await handler.Handle(request, cancellationToken);
-        }
-
-        protected virtual void Validate(IMessage message)
-        {
-            var validationContext = new ValidationContext(message);
-            Validator.ValidateObject(message, validationContext);
+            return requestService.Send(this, request);
         }
     }
 }

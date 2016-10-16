@@ -1,8 +1,6 @@
-﻿using NArchitecture;
-
-namespace NArchitecture.Tests
+﻿namespace NArchitecture.Tests.Events
 {
-    internal class SimpleEvent : IEvent
+    public class SimpleEvent : IEvent
     {
     }
 }

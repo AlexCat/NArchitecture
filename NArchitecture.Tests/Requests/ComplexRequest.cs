@@ -1,8 +1,6 @@
-﻿using NArchitecture;
-
-namespace NArchitecture.Tests
+﻿namespace NArchitecture.Tests.Requests
 {
-    internal class ComplexRequest : IRequest<int>
+    public class ComplexRequest : IRequest<int>
     {
     }
 }
