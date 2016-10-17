@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using NArchitecture.Tests;
 using NArchitecture.Tests.Requests;
 using System;
 using System.Threading.Tasks;
@@ -8,18 +8,10 @@ namespace NArchitecture
 {
     public class RequestTests
     {
-        private IBus CreateBus(Action<BusOptions> configure)
-        {
-            var services = new ServiceCollection();
-            services.AddBus(configure);
-            var provider = services.BuildServiceProvider();
-            return provider.GetService<IBus>();
-        }
-
         [Fact]
         public async Task SendSimpleRequest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureRequests(op =>
                 {
@@ -33,7 +25,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleRequestFailTest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureRequests(op =>
                 {
@@ -50,7 +42,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleRequestWithoutHandlerTest()
         {
-            var bus = CreateBus(o => { });
+            var bus = BusFactory.CreateBus(o => { });
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
                 return bus.Request(new SimpleRequest());
@@ -60,7 +52,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleRequestWithTooManyHandlersTest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureRequests(op =>
                 {
@@ -78,7 +70,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendComplexRequest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureRequests(op =>
                 {
@@ -92,7 +84,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendComplexRequestFailTest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureRequests(op =>
                 {
@@ -109,7 +101,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendComplexRequestWithoutHandlerTest()
         {
-            var bus = CreateBus(o => { });
+            var bus = BusFactory.CreateBus(o => { });
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
                 return bus.Request(new ComplexRequest());
@@ -119,7 +111,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendComplexRequestWithTooManyHandlersTest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureRequests(op =>
                 {

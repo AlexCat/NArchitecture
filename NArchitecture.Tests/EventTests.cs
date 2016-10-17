@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using NArchitecture.Tests;
 using NArchitecture.Tests.Events;
 using System;
 using System.Threading.Tasks;
@@ -8,18 +8,10 @@ namespace NArchitecture
 {
     public class EventTests
     {
-        private IBus CreateBus(Action<BusOptions> configure)
-        {
-            var services = new ServiceCollection();
-            services.AddBus(configure);
-            var provider = services.BuildServiceProvider();
-            return provider.GetService<IBus>();
-        }
-
         [Fact]
         public async Task SendSimpleEventTest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureEvents(eo =>
                 {
@@ -33,7 +25,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleEventFailTest()
         {
-            var bus = CreateBus(o =>
+            var bus = BusFactory.CreateBus(o =>
             {
                 o.ConfigureEvents(eo =>
                 {
@@ -50,7 +42,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleEventWithoutHandlerTest()
         {
-            var bus = CreateBus(o => { });
+            var bus = BusFactory.CreateBus(o => { });
             await bus.Notify(new SimpleEvent());
         }
     }

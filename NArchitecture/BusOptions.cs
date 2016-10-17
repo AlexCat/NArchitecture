@@ -24,6 +24,7 @@ namespace NArchitecture
             EventOptions.AddServicesTo(services);
             RequestOptions.AddServicesTo(services);
             AuthorizationOptions.AddServicesTo(services);
+
             services.AddSingleton(AuthorizationOptions);
         }
 

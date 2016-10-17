@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthorizationTests.cs" />
+    <Compile Include="BusFactory.cs" />
     <Compile Include="Requests\ComplexRequest.cs" />
     <Compile Include="Requests\ComplexRequestHandler.cs" />
     <Compile Include="Requests\ComplexRequestHandlerFailing.cs" />
