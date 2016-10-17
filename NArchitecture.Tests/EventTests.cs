@@ -21,7 +21,10 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddEventHandler<SimpleEventHandler>();
+                o.ConfigureEvents(eo =>
+                {
+                    eo.AddEventHandler<SimpleEventHandler>();
+                });
             });
 
             await bus.Notify(new SimpleEvent());
@@ -32,7 +35,10 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddEventHandler<SimpleEventHandlerFailing>();
+                o.ConfigureEvents(eo =>
+                {
+                    eo.AddEventHandler<SimpleEventHandlerFailing>();
+                });
             });
 
             await Assert.ThrowsAsync<AggregateException>(() =>

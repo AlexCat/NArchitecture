@@ -1,63 +1,40 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NArchitecture.Events;
+using NArchitecture.Requests;
 using NArchitecture.Security;
 using System;
-using System.Collections.Generic;
 
 namespace NArchitecture
 {
     public class BusOptions
     {
-        private readonly IList<Type> eventHandlers;
-        private readonly IList<Type> requestHandlers;
-        private readonly IList<Type> authorizationHandlers;
-
+        public EventOptions EventOptions { get; }
+        public RequestOptions RequestOptions { get; }
         public AuthorizationOptions AuthorizationOptions { get; }
 
         public BusOptions()
         {
-            eventHandlers = new List<Type>();
-            requestHandlers = new List<Type>();
-            authorizationHandlers = new List<Type>();
-
+            EventOptions = new EventOptions();
+            RequestOptions = new RequestOptions();
             AuthorizationOptions = new AuthorizationOptions();
-        }
-
-        public void AddEventHandler<TEventHandler>()
-            where TEventHandler : class, IEventHandler
-        {
-            eventHandlers.Add(typeof(TEventHandler));
-        }
-
-        public void AddRequestHandler<TRequestHandler>()
-            where TRequestHandler : class, IRequestHandler
-        {
-            requestHandlers.Add(typeof(TRequestHandler));
-        }
-
-        public void AddAuthorizationHandler<TAuthorizationHandler>()
-            where TAuthorizationHandler : class, IAuthorizationHandler
-        {
-            authorizationHandlers.Add(typeof(TAuthorizationHandler));
         }
 
         public void AddServicesTo(IServiceCollection services)
         {
-            foreach(var eventHandler in eventHandlers)
-            {
-                services.AddTransient(typeof(IEventHandler), eventHandler);
-            }
-
-            foreach (var requestHandler in requestHandlers)
-            {
-                services.AddTransient(typeof(IRequestHandler), requestHandler);
-            }
-
-            foreach(var authorizationHandler in authorizationHandlers)
-            {
-                services.AddTransient(typeof(IAuthorizationHandler), authorizationHandler);
-            }
-
+            EventOptions.AddServicesTo(services);
+            RequestOptions.AddServicesTo(services);
+            AuthorizationOptions.AddServicesTo(services);
             services.AddSingleton(AuthorizationOptions);
+        }
+
+        public void ConfigureEvents(Action<EventOptions> configure)
+        {
+            configure(EventOptions);
+        }
+
+        public void ConfigureRequests(Action<RequestOptions> configure)
+        {
+            configure(RequestOptions);
         }
 
         public void ConfigureAuthorization(Action<AuthorizationOptions> configure)

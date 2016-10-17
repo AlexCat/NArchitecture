@@ -3,9 +3,17 @@ using System.Collections.Generic;
 
 namespace NArchitecture.Security
 {
-    public class AuthorizationOptions
+    public class AuthorizationOptions : BaseOptions
     {
         private IDictionary<string, AuthorizationPolicy> PolicyMap { get; } = new Dictionary<string, AuthorizationPolicy>(StringComparer.OrdinalIgnoreCase);
+
+        public AuthorizationOptions() : base(typeof(IAuthorizationHandler)) { }
+
+        public void AddAuthorizationHandler<TAuthorizationHandler>()
+            where TAuthorizationHandler : class, IAuthorizationHandler
+        {
+            handlers.Add(typeof(TAuthorizationHandler));
+        }
 
         public void AddPolicy(string name, AuthorizationPolicy policy)
         {

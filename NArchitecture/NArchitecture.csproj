@@ -45,11 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseOptions.cs" />
     <Compile Include="Bus.cs" />
     <Compile Include="BusOptions.cs" />
     <Compile Include="BusServiceCollectionExtensions.cs" />
     <Compile Include="Events\DefaultEventService.cs" />
     <Compile Include="Events\EventHandler.cs" />
+    <Compile Include="Events\EventOptions.cs" />
     <Compile Include="Events\IEventService.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="IBus.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Requests\IRequestService.cs" />
     <Compile Include="Requests\RequestHandler.cs" />
     <Compile Include="Requests\RequestHandlerContext.cs" />
+    <Compile Include="Requests\RequestOptions.cs" />
     <Compile Include="Security\AuthorizationHandlerContext.cs" />
     <Compile Include="Security\AuthorizationHandler.cs" />
     <Compile Include="Security\AuthorizationOptions.cs" />

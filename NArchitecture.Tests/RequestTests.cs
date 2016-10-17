@@ -21,7 +21,10 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddRequestHandler<SimpleRequestHandler>();
+                o.ConfigureRequests(op =>
+                {
+                    op.AddRequestHandler<SimpleRequestHandler>();
+                });
             });
 
             await bus.Request(new SimpleRequest());
@@ -32,7 +35,10 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddRequestHandler<SimpleRequestHandlerFailing>();
+                o.ConfigureRequests(op =>
+                {
+                    op.AddRequestHandler<SimpleRequestHandlerFailing>();
+                });
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
@@ -56,8 +62,11 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddRequestHandler<SimpleRequestHandler>();
-                o.AddRequestHandler<SimpleRequestHandlerFailing>();
+                o.ConfigureRequests(op =>
+                {
+                    op.AddRequestHandler<SimpleRequestHandler>();
+                    op.AddRequestHandler<SimpleRequestHandlerFailing>();
+                });
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
@@ -71,7 +80,10 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddRequestHandler<ComplexRequestHandler>();
+                o.ConfigureRequests(op =>
+                {
+                    op.AddRequestHandler<ComplexRequestHandler>();
+                });
             });
 
             await bus.Request(new ComplexRequest());
@@ -82,7 +94,10 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddRequestHandler<ComplexRequestHandlerFailing>();
+                o.ConfigureRequests(op =>
+                {
+                    op.AddRequestHandler<ComplexRequestHandlerFailing>();
+                });
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
@@ -106,8 +121,11 @@ namespace NArchitecture
         {
             var bus = CreateBus(o =>
             {
-                o.AddRequestHandler<ComplexRequestHandler>();
-                o.AddRequestHandler<ComplexRequestHandlerFailing>();
+                o.ConfigureRequests(op =>
+                {
+                    op.AddRequestHandler<ComplexRequestHandler>();
+                    op.AddRequestHandler<ComplexRequestHandlerFailing>();
+                });
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
