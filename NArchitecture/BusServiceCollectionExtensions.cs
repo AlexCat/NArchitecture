@@ -17,7 +17,7 @@ namespace NArchitecture
 
             var busOptions = new BusOptions();
             configure(busOptions);
-            busOptions.AddTo(services);
+            busOptions.AddServicesTo(services);
 
             services.TryAdd(ServiceDescriptor.Transient<IEventService, DefaultEventService>());
             services.TryAdd(ServiceDescriptor.Transient<IRequestService, DefaultRequestService>());

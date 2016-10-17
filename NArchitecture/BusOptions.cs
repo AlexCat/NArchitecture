@@ -40,7 +40,7 @@ namespace NArchitecture
             authorizationHandlers.Add(typeof(TAuthorizationHandler));
         }
 
-        public void AddTo(IServiceCollection services)
+        public void AddServicesTo(IServiceCollection services)
         {
             foreach(var eventHandler in eventHandlers)
             {
