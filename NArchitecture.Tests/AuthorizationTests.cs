@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NArchitecture.Tests
+namespace NArchitecture
 {
     public class AuthorizationTests
     {

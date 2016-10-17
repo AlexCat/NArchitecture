@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NArchitecture.Tests
+namespace NArchitecture
 {
     public class RequestTests
     {

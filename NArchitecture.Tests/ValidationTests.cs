@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NArchitecture.Tests
+namespace NArchitecture
 {
     public class ValidationTests
     {
