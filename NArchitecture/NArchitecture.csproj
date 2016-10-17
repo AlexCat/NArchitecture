@@ -55,6 +55,7 @@
     <Compile Include="IBus.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="IUserContext.cs" />
     <Compile Include="Requests\DefaultRequestService.cs" />
     <Compile Include="Requests\IRequestHandler.cs" />
     <Compile Include="IMessage.cs" />
