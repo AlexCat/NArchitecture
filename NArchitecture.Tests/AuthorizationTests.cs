@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NArchitecture
+namespace NArchitecture.Tests
 {
     public class AuthorizationTests
     {
@@ -17,7 +17,7 @@ namespace NArchitecture
                 i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
             });
 
-            var authorizationService = BusFactory.CreateAuthorizationService(o =>
+            var authorizationService = ServiceFactory.CreateAuthorizationService(o =>
             {
                 o.AddPolicy("Over21", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(21) }));
                 o.AddAuthorizationHandler<MinimumAgeHandler>();
@@ -34,7 +34,7 @@ namespace NArchitecture
                 i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
             });
 
-            var authorizationService = BusFactory.CreateAuthorizationService(o =>
+            var authorizationService = ServiceFactory.CreateAuthorizationService(o =>
             {
                 o.AddPolicy("Over40", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(40) }));
                 o.AddAuthorizationHandler<MinimumAgeHandler>();
@@ -51,7 +51,7 @@ namespace NArchitecture
                 i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
             });
 
-            var authorizationService = BusFactory.CreateAuthorizationService(o => { });
+            var authorizationService = ServiceFactory.CreateAuthorizationService(o => { });
             var requirements = new IAuthorizationRequirement[0];
 
             Assert.False(await authorizationService.Authorize(user, null, requirements));

@@ -4,14 +4,14 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NArchitecture
+namespace NArchitecture.Tests
 {
     public class EventTests
     {
         [Fact]
         public async Task SendSimpleEventTest()
         {
-            var eventService = BusFactory.CreateEventService(o =>
+            var eventService = ServiceFactory.CreateEventService(o =>
             {
                 o.AddEventHandler<SimpleEventHandler>();
             });
@@ -22,7 +22,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleEventFailTest()
         {
-            var eventService = BusFactory.CreateEventService(o =>
+            var eventService = ServiceFactory.CreateEventService(o =>
             {
                 o.AddEventHandler<SimpleEventHandlerFailing>();
             });
@@ -36,7 +36,7 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleEventWithoutHandlerTest()
         {
-            var eventService = BusFactory.CreateEventService(o => { });
+            var eventService = ServiceFactory.CreateEventService(o => { });
             await eventService.Notify(BusFactory.CreateTestBus(), new SimpleEvent());
         }
     }

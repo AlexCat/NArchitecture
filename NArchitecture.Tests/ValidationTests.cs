@@ -1,17 +1,16 @@
-﻿using NArchitecture.Tests;
-using NArchitecture.Tests.Validation;
+﻿using NArchitecture.Tests.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NArchitecture
+namespace NArchitecture.Tests
 {
     public class ValidationTests
     {
         [Fact]
         public async Task SimpleValidMessageTest()
         {
-            var validationService = BusFactory.CreateValidationService();
+            var validationService = ServiceFactory.CreateValidationService();
 
             await validationService.Validate(new SimpleMessage { RequiredAttribute = "Simple Message" });
         }
@@ -19,7 +18,7 @@ namespace NArchitecture
         [Fact]
         public async Task SimpleInvalidMessageTest()
         {
-            var validationService = BusFactory.CreateValidationService();
+            var validationService = ServiceFactory.CreateValidationService();
 
             await Assert.ThrowsAsync<ValidationException>(() =>
             {

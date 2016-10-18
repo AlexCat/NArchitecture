@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace NArchitecture
+namespace NArchitecture.Tests
 {
     public class TestBus : IBus
     {

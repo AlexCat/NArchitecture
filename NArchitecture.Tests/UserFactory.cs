@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 
-namespace NArchitecture
+namespace NArchitecture.Tests
 {
     public static class UserFactory
     {
