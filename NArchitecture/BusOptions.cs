@@ -9,16 +9,16 @@ namespace NArchitecture
 {
     public class BusOptions
     {
-        public EventOptions EventOptions { get; }
-        public RequestOptions RequestOptions { get; }
-        public AuthorizationOptions AuthorizationOptions { get; }
+        public EventComposition Events { get; }
+        public RequestComposition Requests { get; }
+        public AuthorizationComposition Authorization { get; }
         public IList<IMessagePolicy> MessagePolicies { get; }
 
         public BusOptions()
         {
-            EventOptions = new EventOptions();
-            RequestOptions = new RequestOptions();
-            AuthorizationOptions = new AuthorizationOptions();
+            Events = new EventComposition();
+            Requests = new RequestComposition();
+            Authorization = new AuthorizationComposition();
             MessagePolicies = new List<IMessagePolicy>();
         }
 
@@ -40,19 +40,9 @@ namespace NArchitecture
                 .ToArray();
         }
 
-        public void ConfigureEvents(Action<EventOptions> configure)
-        {
-            configure(EventOptions);
-        }
-
-        public void ConfigureRequests(Action<RequestOptions> configure)
-        {
-            configure(RequestOptions);
-        }
-
         public void ConfigureAuthorization(Action<AuthorizationOptions> configure)
         {
-            configure(AuthorizationOptions);
+            configure(Authorization.Options);
         }
     }
 }

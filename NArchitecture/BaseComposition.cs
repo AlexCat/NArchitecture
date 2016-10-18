@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace NArchitecture
 {
-    public class BaseOptions
+    public class BaseComposition
     {
         protected Type serviceType;
         protected readonly IList<Type> handlers;
 
-        public BaseOptions(Type serviceType)
+        public BaseComposition(Type serviceType)
         {
             this.serviceType = serviceType;
             handlers = new List<Type>();

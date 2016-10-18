@@ -8,7 +8,7 @@ namespace NArchitecture.Tests
 {
     public static class ServiceFactory
     {
-        public static IEventService CreateEventService(Action<EventOptions> configure)
+        public static IEventService CreateEventService(Action<EventComposition> configure)
         {
             var services = new ServiceCollection();
             services.AddEventService(configure);
@@ -16,7 +16,7 @@ namespace NArchitecture.Tests
             return provider.GetService<IEventService>();
         }
 
-        public static IRequestService CreateRequestService(Action<RequestOptions> configure)
+        public static IRequestService CreateRequestService(Action<RequestComposition> configure)
         {
             var services = new ServiceCollection();
             services.AddRequestService(configure);
@@ -24,7 +24,7 @@ namespace NArchitecture.Tests
             return provider.GetService<IRequestService>();
         }
 
-        public static IAuthorizationService CreateAuthorizationService(Action<AuthorizationOptions> configure)
+        public static IAuthorizationService CreateAuthorizationService(Action<AuthorizationComposition> configure)
         {
             var services = new ServiceCollection();
             services.AddAuthorizationService(configure);

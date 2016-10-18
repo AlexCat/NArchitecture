@@ -1,8 +1,8 @@
 ﻿namespace NArchitecture.Requests
 {
-    public class RequestOptions : BaseOptions
+    public class RequestComposition : BaseComposition
     {
-        public RequestOptions() : base(typeof(IRequestHandler)) { }
+        public RequestComposition() : base(typeof(IRequestHandler)) { }
 
         public void AddRequestHandler<TRequestHandler>()
             where TRequestHandler : class, IRequestHandler

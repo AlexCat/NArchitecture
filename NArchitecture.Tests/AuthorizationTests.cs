@@ -17,10 +17,10 @@ namespace NArchitecture.Tests
                 i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
             });
 
-            var authorizationService = ServiceFactory.CreateAuthorizationService(o =>
+            var authorizationService = ServiceFactory.CreateAuthorizationService(c =>
             {
-                o.AddPolicy("Over21", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(21) }));
-                o.AddAuthorizationHandler<MinimumAgeHandler>();
+                c.Options.AddPolicy("Over21", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(21) }));
+                c.AddAuthorizationHandler<MinimumAgeHandler>();
             });
 
             Assert.True(await authorizationService.Authorize(user, null, "Over21"));
@@ -34,10 +34,10 @@ namespace NArchitecture.Tests
                 i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
             });
 
-            var authorizationService = ServiceFactory.CreateAuthorizationService(o =>
+            var authorizationService = ServiceFactory.CreateAuthorizationService(c =>
             {
-                o.AddPolicy("Over40", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(40) }));
-                o.AddAuthorizationHandler<MinimumAgeHandler>();
+                c.Options.AddPolicy("Over40", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(40) }));
+                c.AddAuthorizationHandler<MinimumAgeHandler>();
             });
 
             Assert.False(await authorizationService.Authorize(user, null, "Over40"));
@@ -51,7 +51,7 @@ namespace NArchitecture.Tests
                 i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
             });
 
-            var authorizationService = ServiceFactory.CreateAuthorizationService(o => { });
+            var authorizationService = ServiceFactory.CreateAuthorizationService(c => { });
             var requirements = new IAuthorizationRequirement[0];
 
             Assert.False(await authorizationService.Authorize(user, null, requirements));

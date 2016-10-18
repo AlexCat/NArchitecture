@@ -1,8 +1,8 @@
 ﻿namespace NArchitecture.Events
 {
-    public class EventOptions : BaseOptions
+    public class EventComposition : BaseComposition
     {
-        public EventOptions() : base(typeof(IEventHandler)) { }
+        public EventComposition() : base(typeof(IEventHandler)) { }
 
         public void AddEventHandler<TEventHandler>()
             where TEventHandler : class, IEventHandler

@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace NArchitecture.Security
 {
-    public class AuthorizationOptions : BaseOptions
+    public class AuthorizationOptions
     {
         private IDictionary<string, AuthorizationPolicy> PolicyMap { get; } = new Dictionary<string, AuthorizationPolicy>(StringComparer.OrdinalIgnoreCase);
-
-        public AuthorizationOptions() : base(typeof(IAuthorizationHandler)) { }
-
-        public void AddAuthorizationHandler<TAuthorizationHandler>()
-            where TAuthorizationHandler : class, IAuthorizationHandler
-        {
-            handlers.Add(typeof(TAuthorizationHandler));
-        }
 
         public void AddPolicy(string name, AuthorizationPolicy policy)
         {
@@ -29,12 +20,6 @@ namespace NArchitecture.Security
             Guard.AgainstNull(nameof(name), name);
 
             return PolicyMap.ContainsKey(name) ? PolicyMap[name] : null;
-        }
-
-        public override void AddServicesTo(IServiceCollection services)
-        {
-            base.AddServicesTo(services);
-            services.AddSingleton(this);
         }
     }
 }

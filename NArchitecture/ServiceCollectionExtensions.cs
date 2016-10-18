@@ -22,34 +22,34 @@ namespace NArchitecture
         }
 
         public static IServiceCollection AddEventService(
-            this IServiceCollection services, Action<EventOptions> configure)
+            this IServiceCollection services, Action<EventComposition> configure)
         {
             Guard.AgainstNull(nameof(services), services);
             Guard.AgainstNull(nameof(configure), configure);
 
-            var options = new EventOptions();
+            var options = new EventComposition();
             configure(options);
             return AddEventService(services, options);
         }
 
         public static IServiceCollection AddRequestService(
-            this IServiceCollection services, Action<RequestOptions> configure)
+            this IServiceCollection services, Action<RequestComposition> configure)
         {
             Guard.AgainstNull(nameof(services), services);
             Guard.AgainstNull(nameof(configure), configure);
 
-            var options = new RequestOptions();
+            var options = new RequestComposition();
             configure(options);
             return AddRequestService(services, options);
         }
 
         public static IServiceCollection AddAuthorizationService(
-            this IServiceCollection services, Action<AuthorizationOptions> configure)
+            this IServiceCollection services, Action<AuthorizationComposition> configure)
         {
             Guard.AgainstNull(nameof(services), services);
             Guard.AgainstNull(nameof(configure), configure);
 
-            var options = new AuthorizationOptions();
+            var options = new AuthorizationComposition();
             configure(options);
             return AddAuthorizationService(services, options);
         }
@@ -66,9 +66,9 @@ namespace NArchitecture
         private static IServiceCollection AddBus(
             this IServiceCollection services, BusOptions options)
         {
-            services = AddEventService(services, options.EventOptions);
-            services = AddRequestService(services, options.RequestOptions);
-            services = AddAuthorizationService(services, options.AuthorizationOptions);
+            services = AddEventService(services, options.Events);
+            services = AddRequestService(services, options.Requests);
+            services = AddAuthorizationService(services, options.Authorization);
             services = AddValidationService(services);
             services.AddSingleton(options);
             services.TryAdd(ServiceDescriptor.Transient<IBus, Bus>());
@@ -76,25 +76,26 @@ namespace NArchitecture
         }
 
         private static IServiceCollection AddEventService(
-            this IServiceCollection services, EventOptions options)
+            this IServiceCollection services, EventComposition composition)
         {
-            options.AddServicesTo(services);
+            composition.AddServicesTo(services);
             services.TryAdd(ServiceDescriptor.Transient<IEventService, DefaultEventService>());
             return services;
         }
 
         private static IServiceCollection AddRequestService(
-            this IServiceCollection services, RequestOptions options)
+            this IServiceCollection services, RequestComposition composition)
         {
-            options.AddServicesTo(services);
+            composition.AddServicesTo(services);
             services.TryAdd(ServiceDescriptor.Transient<IRequestService, DefaultRequestService>());
             return services;
         }
 
         private static IServiceCollection AddAuthorizationService(
-            this IServiceCollection services, AuthorizationOptions options)
+            this IServiceCollection services, AuthorizationComposition composition)
         {
-            options.AddServicesTo(services);
+            composition.AddServicesTo(services);
+            services.AddSingleton(composition.Options);
             services.TryAdd(ServiceDescriptor.Transient<IAuthorizationService, DefaultAuthorizationService>());
             return services;
         }
