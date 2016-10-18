@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using NArchitecture.Events;
+﻿using NArchitecture.Events;
 using NArchitecture.Requests;
 using NArchitecture.Security;
 using System;
@@ -17,15 +16,6 @@ namespace NArchitecture
             EventOptions = new EventOptions();
             RequestOptions = new RequestOptions();
             AuthorizationOptions = new AuthorizationOptions();
-        }
-
-        public void AddServicesTo(IServiceCollection services)
-        {
-            EventOptions.AddServicesTo(services);
-            RequestOptions.AddServicesTo(services);
-            AuthorizationOptions.AddServicesTo(services);
-
-            services.AddSingleton(AuthorizationOptions);
         }
 
         public void ConfigureEvents(Action<EventOptions> configure)

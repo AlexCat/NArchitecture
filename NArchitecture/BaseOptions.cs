@@ -15,7 +15,7 @@ namespace NArchitecture
             handlers = new List<Type>();
         }
 
-        public void AddServicesTo(IServiceCollection services)
+        public virtual void AddServicesTo(IServiceCollection services)
         {
             foreach(var handler in handlers)
             {

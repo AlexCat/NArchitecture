@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NArchitecture.Security
 {
@@ -28,6 +29,12 @@ namespace NArchitecture.Security
             Guard.AgainstNull(nameof(name), name);
 
             return PolicyMap.ContainsKey(name) ? PolicyMap[name] : null;
+        }
+
+        public override void AddServicesTo(IServiceCollection services)
+        {
+            base.AddServicesTo(services);
+            services.AddSingleton(this);
         }
     }
 }
