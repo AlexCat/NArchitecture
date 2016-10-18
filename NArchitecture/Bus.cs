@@ -54,7 +54,7 @@ namespace NArchitecture
 
         public Task<TResponse> Request<TResponse>(IRequest<TResponse> request)
         {
-            return requestService.Request(this, request);
+            return requestService.Request<TResponse>(this, request);
         }
 
         public Task Validate(IMessage message)

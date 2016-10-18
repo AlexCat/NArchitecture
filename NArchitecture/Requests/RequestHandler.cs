@@ -12,11 +12,11 @@ namespace NArchitecture.Requests
 
         public virtual Task Handle(RequestHandlerContext context)
         {
-            var request = (TRequest)context.Request;
-            return Handle(request);
+            var requestContext = (RequestHandlerContext<TRequest>)context;
+            return Handle(requestContext);
         }
 
-        protected abstract Task Handle(TRequest request);
+        protected abstract Task Handle(RequestHandlerContext<TRequest> context);
     }
 
     public abstract class RequestHandler<TRequest, TResponse> : IRequestHandler
@@ -29,10 +29,10 @@ namespace NArchitecture.Requests
 
         public virtual async Task Handle(RequestHandlerContext context)
         {
-            var request = (TRequest)context.Request;
-            context.Respond(await Handle(request));
+            var requestContext = (RequestHandlerContext<TRequest, TResponse>)context;
+            await Handle(requestContext);
         }
 
-        protected abstract Task<TResponse> Handle(TRequest request);
+        protected abstract Task Handle(RequestHandlerContext<TRequest, TResponse> context);
     }
 }

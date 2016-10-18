@@ -20,7 +20,7 @@ namespace NArchitecture.Requests
             Guard.AgainstNull(nameof(request), request);
 
             var handler = Find(request);
-            var context = new RequestHandlerContext(bus, request);
+            var context = CreateRequestHandlerContext(bus, request);
 
             return handler.Handle(context);
         }
@@ -31,11 +31,23 @@ namespace NArchitecture.Requests
             Guard.AgainstNull(nameof(request), request);
 
             var handler = Find(request);
-            var context = new RequestHandlerContext(bus, request);
+            var context = CreateRequestHandlerContext(bus, request);
 
             await handler.Handle(context);
 
-            return (TResponse)context.Response;
+            return context.Response == null ? default(TResponse) : (TResponse)context.Response;
+        }
+
+        private RequestHandlerContext CreateRequestHandlerContext(IBus bus, IRequest request)
+        {
+            Type contextType = typeof(RequestHandlerContext<>).MakeGenericType(request.GetType());
+            return (RequestHandlerContext)Activator.CreateInstance(contextType, bus, request);
+        }
+
+        private RequestHandlerContext CreateRequestHandlerContext<TResponse>(IBus bus, IRequest<TResponse> request)
+        {
+            Type contextType = typeof(RequestHandlerContext<,>).MakeGenericType(request.GetType(), typeof(TResponse));
+            return (RequestHandlerContext)Activator.CreateInstance(contextType, bus, request);
         }
 
         private IRequestHandler Find(IRequest request)
