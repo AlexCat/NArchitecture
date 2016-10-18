@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using NArchitecture.Events;
+using System.Threading.Tasks;
 
 namespace NArchitecture
 {
     public interface IEventHandler
     {
-        Task Handle(IEvent @event);
+        Task Handle(EventHandlerContext context);
     }
 }

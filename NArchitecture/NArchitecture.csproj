@@ -48,6 +48,7 @@
     <Compile Include="BaseComposition.cs" />
     <Compile Include="Bus.cs" />
     <Compile Include="BusOptions.cs" />
+    <Compile Include="Events\EventHandlerContext.cs" />
     <Compile Include="IMessageAuthorization.cs" />
     <Compile Include="MessageAuthorization.cs" />
     <Compile Include="Security\AuthorizationComposition.cs" />

@@ -5,14 +5,14 @@ namespace NArchitecture.Events
     public abstract class EventHandler<TEvent> : IEventHandler
         where TEvent : IEvent
     {
-        public async virtual Task Handle(IEvent @event)
+        public async virtual Task Handle(EventHandlerContext context)
         {
-            if (@event is TEvent)
+            if (context is EventHandlerContext<TEvent>)
             {
-                await Handle((TEvent)@event);
+                await Handle((EventHandlerContext<TEvent>)context);
             }
         }
 
-        protected abstract Task Handle(TEvent @event);
+        protected abstract Task Handle(EventHandlerContext<TEvent> context);
     }
 }
