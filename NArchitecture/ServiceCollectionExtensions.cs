@@ -70,6 +70,7 @@ namespace NArchitecture
             services = AddRequestService(services, options.RequestOptions);
             services = AddAuthorizationService(services, options.AuthorizationOptions);
             services = AddValidationService(services);
+            services.AddSingleton(options);
             services.TryAdd(ServiceDescriptor.Transient<IBus, Bus>());
             return services;
         }

@@ -48,6 +48,8 @@
     <Compile Include="BaseOptions.cs" />
     <Compile Include="Bus.cs" />
     <Compile Include="BusOptions.cs" />
+    <Compile Include="IMessagePolicy.cs" />
+    <Compile Include="MessagePolicy.cs" />
     <Compile Include="ServiceCollectionExtensions.cs" />
     <Compile Include="Events\DefaultEventService.cs" />
     <Compile Include="Events\EventHandler.cs" />
@@ -57,7 +59,6 @@
     <Compile Include="IBus.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="IUserContext.cs" />
     <Compile Include="Requests\DefaultRequestService.cs" />
     <Compile Include="Requests\IRequestHandler.cs" />
     <Compile Include="IMessage.cs" />

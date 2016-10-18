@@ -4,6 +4,6 @@ namespace NArchitecture
 {
     public interface IEventService
     {
-        Task Handle(IBus bus, IEvent @event);
+        Task Notify(IBus bus, IEvent @event);
     }
 }

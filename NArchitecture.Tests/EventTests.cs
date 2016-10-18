@@ -11,39 +11,33 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleEventTest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var eventService = BusFactory.CreateEventService(o =>
             {
-                o.ConfigureEvents(eo =>
-                {
-                    eo.AddEventHandler<SimpleEventHandler>();
-                });
+                o.AddEventHandler<SimpleEventHandler>();
             });
 
-            await bus.Notify(new SimpleEvent());
+            await eventService.Notify(BusFactory.CreateTestBus(), new SimpleEvent());
         }
 
         [Fact]
         public async Task SendSimpleEventFailTest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var eventService = BusFactory.CreateEventService(o =>
             {
-                o.ConfigureEvents(eo =>
-                {
-                    eo.AddEventHandler<SimpleEventHandlerFailing>();
-                });
+                o.AddEventHandler<SimpleEventHandlerFailing>();
             });
 
             await Assert.ThrowsAsync<AggregateException>(() =>
             {
-                return bus.Notify(new SimpleEvent());
+                return eventService.Notify(BusFactory.CreateTestBus(), new SimpleEvent());
             });
         }
 
         [Fact]
         public async Task SendSimpleEventWithoutHandlerTest()
         {
-            var bus = BusFactory.CreateBus(o => { });
-            await bus.Notify(new SimpleEvent());
+            var eventService = BusFactory.CreateEventService(o => { });
+            await eventService.Notify(BusFactory.CreateTestBus(), new SimpleEvent());
         }
     }
 }

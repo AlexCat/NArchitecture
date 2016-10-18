@@ -11,118 +11,102 @@ namespace NArchitecture
         [Fact]
         public async Task SendSimpleRequest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var requestService = BusFactory.CreateRequestService(o =>
             {
-                o.ConfigureRequests(op =>
-                {
-                    op.AddRequestHandler<SimpleRequestHandler>();
-                });
+                o.AddRequestHandler<SimpleRequestHandler>();
             });
 
-            await bus.Request(new SimpleRequest());
+            await requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
         }
 
         [Fact]
         public async Task SendSimpleRequestFailTest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var requestService = BusFactory.CreateRequestService(o =>
             {
-                o.ConfigureRequests(op =>
-                {
-                    op.AddRequestHandler<SimpleRequestHandlerFailing>();
-                });
+                o.AddRequestHandler<SimpleRequestHandlerFailing>();
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return bus.Request(new SimpleRequest());
+                return requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
             });
         }
 
         [Fact]
         public async Task SendSimpleRequestWithoutHandlerTest()
         {
-            var bus = BusFactory.CreateBus(o => { });
+            var requestService = BusFactory.CreateRequestService(o => { });
+            
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return bus.Request(new SimpleRequest());
+                return requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
             });
         }
 
         [Fact]
         public async Task SendSimpleRequestWithTooManyHandlersTest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var requestService = BusFactory.CreateRequestService(o =>
             {
-                o.ConfigureRequests(op =>
-                {
-                    op.AddRequestHandler<SimpleRequestHandler>();
-                    op.AddRequestHandler<SimpleRequestHandlerFailing>();
-                });
+                o.AddRequestHandler<SimpleRequestHandler>();
+                o.AddRequestHandler<SimpleRequestHandlerFailing>();
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return bus.Request(new SimpleRequest());
+                return requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
             });
         }
 
         [Fact]
         public async Task SendComplexRequest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var requestService = BusFactory.CreateRequestService(o =>
             {
-                o.ConfigureRequests(op =>
-                {
-                    op.AddRequestHandler<ComplexRequestHandler>();
-                });
+                o.AddRequestHandler<ComplexRequestHandler>();
             });
 
-            await bus.Request(new ComplexRequest());
+            await requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
         }
 
         [Fact]
         public async Task SendComplexRequestFailTest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var requestService = BusFactory.CreateRequestService(o =>
             {
-                o.ConfigureRequests(op =>
-                {
-                    op.AddRequestHandler<ComplexRequestHandlerFailing>();
-                });
+                o.AddRequestHandler<ComplexRequestHandlerFailing>();
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return bus.Request(new ComplexRequest());
+                return requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
             });
         }
 
         [Fact]
         public async Task SendComplexRequestWithoutHandlerTest()
         {
-            var bus = BusFactory.CreateBus(o => { });
+            var requestService = BusFactory.CreateRequestService(o => { });
+
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return bus.Request(new ComplexRequest());
+                return requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
             });
         }
 
         [Fact]
         public async Task SendComplexRequestWithTooManyHandlersTest()
         {
-            var bus = BusFactory.CreateBus(o =>
+            var requestService = BusFactory.CreateRequestService(o =>
             {
-                o.ConfigureRequests(op =>
-                {
-                    op.AddRequestHandler<ComplexRequestHandler>();
-                    op.AddRequestHandler<ComplexRequestHandlerFailing>();
-                });
+                o.AddRequestHandler<ComplexRequestHandler>();
+                o.AddRequestHandler<ComplexRequestHandlerFailing>();
             });
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return bus.Request(new ComplexRequest());
+                return requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
             });
         }
     }

@@ -11,19 +11,19 @@ namespace NArchitecture
         [Fact]
         public async Task SimpleValidMessageTest()
         {
-            var bus = BusFactory.CreateBus(o => { });
+            var validationService = BusFactory.CreateValidationService();
 
-            await bus.Validate(new SimpleMessage { RequiredAttribute = "Simple Message" });
+            await validationService.Validate(new SimpleMessage { RequiredAttribute = "Simple Message" });
         }
 
         [Fact]
         public async Task SimpleInvalidMessageTest()
         {
-            var bus = BusFactory.CreateBus(o => { });
+            var validationService = BusFactory.CreateValidationService();
 
             await Assert.ThrowsAsync<ValidationException>(() =>
             {
-                return bus.Validate(new SimpleMessage());
+                return validationService.Validate(new SimpleMessage());
             });
         }
     }

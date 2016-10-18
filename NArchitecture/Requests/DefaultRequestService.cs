@@ -14,7 +14,7 @@ namespace NArchitecture.Requests
             this.handlers = handlers.ToArray();
         }
 
-        public Task Send(IBus bus, IRequest request)
+        public Task Request(IBus bus, IRequest request)
         {
             Guard.AgainstNull(nameof(bus), bus);
             Guard.AgainstNull(nameof(request), request);
@@ -25,7 +25,7 @@ namespace NArchitecture.Requests
             return handler.Handle(context);
         }
 
-        public async Task<TResponse> Send<TResponse>(IBus bus, IRequest<TResponse> request)
+        public async Task<TResponse> Request<TResponse>(IBus bus, IRequest<TResponse> request)
         {
             Guard.AgainstNull(nameof(bus), bus);
             Guard.AgainstNull(nameof(request), request);
