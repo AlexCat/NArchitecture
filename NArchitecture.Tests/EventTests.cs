@@ -16,7 +16,7 @@ namespace NArchitecture.Tests
                 o.AddEventHandler<SimpleEventHandler>();
             });
 
-            await eventService.Notify(BusFactory.CreateTestBus(), new SimpleEvent());
+            await eventService.Notify(BusFactory.CreateBusMock(), new SimpleEvent());
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<AggregateException>(() =>
             {
-                return eventService.Notify(BusFactory.CreateTestBus(), new SimpleEvent());
+                return eventService.Notify(BusFactory.CreateBusMock(), new SimpleEvent());
             });
         }
 
@@ -37,7 +37,7 @@ namespace NArchitecture.Tests
         public async Task SendSimpleEventWithoutHandlerTest()
         {
             var eventService = ServiceFactory.CreateEventService(o => { });
-            await eventService.Notify(BusFactory.CreateTestBus(), new SimpleEvent());
+            await eventService.Notify(BusFactory.CreateBusMock(), new SimpleEvent());
         }
     }
 }

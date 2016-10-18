@@ -12,31 +12,26 @@ namespace NArchitecture
         public EventComposition Events { get; }
         public RequestComposition Requests { get; }
         public AuthorizationComposition Authorization { get; }
-        public IList<IMessagePolicy> MessagePolicies { get; }
+        public IList<IMessageAuthorization> MessageAuthorizations { get; }
 
         public BusOptions()
         {
             Events = new EventComposition();
             Requests = new RequestComposition();
             Authorization = new AuthorizationComposition();
-            MessagePolicies = new List<IMessagePolicy>();
+            MessageAuthorizations = new List<IMessageAuthorization>();
         }
 
-        public void AddMessagePolicy<TMessage>(params string[] policyNames)
+        public void AddMessageAuthorization<TMessage>(string policy)
             where TMessage : IMessage
         {
-            foreach(var policyName in policyNames)
-            {
-                MessagePolicies.Add(new MessagePolicy(typeof(TMessage), policyName));
-            }
+            MessageAuthorizations.Add(new MessageAuthorization(typeof(TMessage), policy, null));
         }
 
-        public string[] GetMessagePolicies(Type messageType)
+        public IMessageAuthorization[] GetMessageAuthorization(Type messageType)
         {
-            return MessagePolicies
+            return MessageAuthorizations
                 .Where(p => p.MessageType == messageType)
-                .Select(p => p.PolicyName)
-                .Distinct()
                 .ToArray();
         }
 

@@ -48,9 +48,10 @@
     <Compile Include="BaseComposition.cs" />
     <Compile Include="Bus.cs" />
     <Compile Include="BusOptions.cs" />
-    <Compile Include="IMessagePolicy.cs" />
-    <Compile Include="MessagePolicy.cs" />
+    <Compile Include="IMessageAuthorization.cs" />
+    <Compile Include="MessageAuthorization.cs" />
     <Compile Include="Security\AuthorizationComposition.cs" />
+    <Compile Include="Security\IAuthorizeData.cs" />
     <Compile Include="ServiceCollectionExtensions.cs" />
     <Compile Include="Events\DefaultEventService.cs" />
     <Compile Include="Events\EventHandler.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Security\AuthorizationHandler.cs" />
     <Compile Include="Security\AuthorizationOptions.cs" />
     <Compile Include="Security\AuthorizationPolicy.cs" />
-    <Compile Include="Security\AuthorizeAttribute.cs" />
     <Compile Include="Security\DefaultAuthorizationService.cs" />
     <Compile Include="Security\IAuthorizationHandler.cs" />
     <Compile Include="Security\IAuthorizationService.cs" />

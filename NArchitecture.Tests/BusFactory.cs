@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NArchitecture.Tests.Mocks;
 using System;
 
 namespace NArchitecture.Tests
@@ -13,9 +14,9 @@ namespace NArchitecture.Tests
             return provider.GetService<IBus>();
         }
 
-        public static IBus CreateTestBus()
+        public static IBus CreateBusMock()
         {
-            return new TestBus();
+            return new BusMock();
         }
     }
 }

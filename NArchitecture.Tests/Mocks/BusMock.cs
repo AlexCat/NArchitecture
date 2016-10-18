@@ -2,9 +2,9 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Tests
+namespace NArchitecture.Tests.Mocks
 {
-    public class TestBus : IBus
+    public class BusMock : IBus
     {
         public Task<bool> Authorize(ClaimsPrincipal user, IMessage message)
         {

@@ -36,8 +36,8 @@ namespace NArchitecture
 
         public async Task<bool> Authorize(ClaimsPrincipal user, IMessage message)
         {
-            var policyNames = options.GetMessagePolicies(message.GetType());
-            var tasks = policyNames.Select(policyName => authorizationService.Authorize(user, message, policyName));
+            var messageAuthorization = options.GetMessageAuthorization(message.GetType());
+            var tasks = messageAuthorization.Select(a => authorizationService.Authorize(user, message, a.Policy));
             var results = await Task.WhenAll(tasks);
             return results.All(r => r);
         }

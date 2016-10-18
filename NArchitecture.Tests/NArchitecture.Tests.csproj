@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="AuthorizationTests.cs" />
     <Compile Include="BusFactory.cs" />
+    <Compile Include="BusTests.cs" />
     <Compile Include="Requests\ComplexRequest.cs" />
     <Compile Include="Requests\ComplexRequestHandler.cs" />
     <Compile Include="Requests\ComplexRequestHandlerFailing.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Security\MinimumAgeRequirement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFactory.cs" />
-    <Compile Include="TestBus.cs" />
+    <Compile Include="Mocks\BusMock.cs" />
     <Compile Include="UserFactory.cs" />
     <Compile Include="ValidationTests.cs" />
     <Compile Include="Validation\SimpleMessage.cs" />

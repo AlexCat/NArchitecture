@@ -15,7 +15,7 @@ namespace NArchitecture.Tests
                 o.AddRequestHandler<SimpleRequestHandler>();
             });
 
-            await requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
+            await requestService.Request(BusFactory.CreateBusMock(), new SimpleRequest());
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
+                return requestService.Request(BusFactory.CreateBusMock(), new SimpleRequest());
             });
         }
 
@@ -39,7 +39,7 @@ namespace NArchitecture.Tests
             
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
+                return requestService.Request(BusFactory.CreateBusMock(), new SimpleRequest());
             });
         }
 
@@ -54,7 +54,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return requestService.Request(BusFactory.CreateTestBus(), new SimpleRequest());
+                return requestService.Request(BusFactory.CreateBusMock(), new SimpleRequest());
             });
         }
 
@@ -66,7 +66,7 @@ namespace NArchitecture.Tests
                 o.AddRequestHandler<ComplexRequestHandler>();
             });
 
-            await requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
+            await requestService.Request(BusFactory.CreateBusMock(), new ComplexRequest());
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
+                return requestService.Request(BusFactory.CreateBusMock(), new ComplexRequest());
             });
         }
 
@@ -90,7 +90,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
+                return requestService.Request(BusFactory.CreateBusMock(), new ComplexRequest());
             });
         }
 
@@ -105,7 +105,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return requestService.Request(BusFactory.CreateTestBus(), new ComplexRequest());
+                return requestService.Request(BusFactory.CreateBusMock(), new ComplexRequest());
             });
         }
     }
