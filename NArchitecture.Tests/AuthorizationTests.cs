@@ -7,7 +7,7 @@ namespace NArchitecture.Tests
 {
     public class AuthorizationTests
     {
-        [Fact]
+        [Fact(DisplayName = "AuthorizationService returns true if handler succeeds")]
         public async Task SucceededRequirementTest()
         {
             var user = UserFactory.CreateUser(i =>
@@ -24,7 +24,7 @@ namespace NArchitecture.Tests
             Assert.True(await authorizationService.Authorize(user, null, "Over21"));
         }
 
-        [Fact]
+        [Fact(DisplayName = "AuthorizationService returns false if handler does not succeeds")]
         public async Task FailedRequirementTest()
         {
             var user = UserFactory.CreateUser(i =>
@@ -41,7 +41,7 @@ namespace NArchitecture.Tests
             Assert.False(await authorizationService.Authorize(user, null, "Over40"));
         }
 
-        [Fact]
+        [Fact(DisplayName = "AuthorizationService returns false if there are no requirements")]
         public async Task NoRequirementTest()
         {
             var user = UserFactory.CreateUser(i =>

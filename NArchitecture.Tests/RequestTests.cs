@@ -7,7 +7,7 @@ namespace NArchitecture.Tests
 {
     public class RequestTests
     {
-        [Fact]
+        [Fact(DisplayName = "RequestService can handle request without response")]
         public async Task SendSimpleRequest()
         {
             var requestService = ServiceFactory.CreateRequestService(o =>
@@ -18,7 +18,7 @@ namespace NArchitecture.Tests
             await requestService.Request(BusFactory.CreateBusMock(), new SimpleRequest());
         }
 
-        [Fact]
+        [Fact(DisplayName = "RequestService throws exception from handler for request without response")]
         public async Task SendSimpleRequestFailTest()
         {
             var requestService = ServiceFactory.CreateRequestService(o =>
@@ -32,7 +32,7 @@ namespace NArchitecture.Tests
             });
         }
 
-        [Fact]
+        [Fact(DisplayName = "RequestService throws exception if there is no handler for given request without response")]
         public async Task SendSimpleRequestWithoutHandlerTest()
         {
             var requestService = ServiceFactory.CreateRequestService(o => { });
@@ -43,7 +43,7 @@ namespace NArchitecture.Tests
             });
         }
 
-        [Fact]
+        [Fact(DisplayName = "RequestService throws exception if there are too many handlers for given request without response")]
         public async Task SendSimpleRequestWithTooManyHandlersTest()
         {
             var requestService = ServiceFactory.CreateRequestService(o =>
@@ -58,7 +58,7 @@ namespace NArchitecture.Tests
             });
         }
 
-        [Fact]
+        [Fact(DisplayName = "RequestService can handle request")]
         public async Task SendComplexRequest()
         {
             var requestService = ServiceFactory.CreateRequestService(o =>
@@ -69,7 +69,7 @@ namespace NArchitecture.Tests
             await requestService.Request(BusFactory.CreateBusMock(), new ComplexRequest());
         }
 
-        [Fact]
+        [Fact(DisplayName = "RequestService throws exception from handler for request")]
         public async Task SendComplexRequestFailTest()
         {
             var requestService = ServiceFactory.CreateRequestService(o =>
@@ -83,7 +83,7 @@ namespace NArchitecture.Tests
             });
         }
 
-        [Fact]
+        [Fact(DisplayName = "RequestService throws exception if there is no handler for given request")]
         public async Task SendComplexRequestWithoutHandlerTest()
         {
             var requestService = ServiceFactory.CreateRequestService(o => { });
@@ -94,7 +94,7 @@ namespace NArchitecture.Tests
             });
         }
 
-        [Fact]
+        [Fact(DisplayName = "RequestService throws exception if there are too many handlers for given request")]
         public async Task SendComplexRequestWithTooManyHandlersTest()
         {
             var requestService = ServiceFactory.CreateRequestService(o =>

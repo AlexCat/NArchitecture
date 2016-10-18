@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorizationPolicyTests.cs" />
     <Compile Include="AuthorizationTests.cs" />
     <Compile Include="BusFactory.cs" />
     <Compile Include="BusTests.cs" />

@@ -8,7 +8,7 @@ namespace NArchitecture.Tests
 {
     public class BusTests
     {
-        [Fact]
+        [Fact(DisplayName = "Bus authorizes the message according to the configuration")]
         public async Task PurchaseAlcoholAuthorizationTest()
         {
             var authorizedUser = UserFactory.CreateUser(i =>

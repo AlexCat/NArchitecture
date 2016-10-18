@@ -1,5 +1,4 @@
-﻿using NArchitecture.Tests;
-using NArchitecture.Tests.Events;
+﻿using NArchitecture.Tests.Events;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -8,7 +7,7 @@ namespace NArchitecture.Tests
 {
     public class EventTests
     {
-        [Fact]
+        [Fact(DisplayName = "EventService can notify handlers with event")]
         public async Task SendSimpleEventTest()
         {
             var eventService = ServiceFactory.CreateEventService(o =>
@@ -19,7 +18,7 @@ namespace NArchitecture.Tests
             await eventService.Notify(BusFactory.CreateBusMock(), new SimpleEvent());
         }
 
-        [Fact]
+        [Fact(DisplayName = "EventService correctly handles handler failure")]
         public async Task SendSimpleEventFailTest()
         {
             var eventService = ServiceFactory.CreateEventService(o =>
@@ -33,7 +32,7 @@ namespace NArchitecture.Tests
             });
         }
 
-        [Fact]
+        [Fact(DisplayName = "EventService correctly handles when there are no handlers")]
         public async Task SendSimpleEventWithoutHandlerTest()
         {
             var eventService = ServiceFactory.CreateEventService(o => { });
