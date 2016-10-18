@@ -1,7 +1,5 @@
-﻿using NArchitecture.Security;
-using NArchitecture.Tests.Security;
+﻿using NArchitecture.Tests.Security;
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,12 +12,12 @@ namespace NArchitecture.Tests
         {
             var user = UserFactory.CreateUser(i =>
             {
-                i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
+                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
             });
 
             var authorizationService = ServiceFactory.CreateAuthorizationService(c =>
             {
-                c.Options.AddPolicy("Over21", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(21) }));
+                c.Options.AddPolicy("Over21", p => p.AddRequirements(new MinimumAgeRequirement(21)));
                 c.AddAuthorizationHandler<MinimumAgeHandler>();
             });
 
@@ -31,12 +29,12 @@ namespace NArchitecture.Tests
         {
             var user = UserFactory.CreateUser(i =>
             {
-                i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
+                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
             });
 
             var authorizationService = ServiceFactory.CreateAuthorizationService(c =>
             {
-                c.Options.AddPolicy("Over40", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(40) }));
+                c.Options.AddPolicy("Over40", p => p.AddRequirements(new MinimumAgeRequirement(40)));
                 c.AddAuthorizationHandler<MinimumAgeHandler>();
             });
 
@@ -48,7 +46,7 @@ namespace NArchitecture.Tests
         {
             var user = UserFactory.CreateUser(i =>
             {
-                i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
+                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
             });
 
             var authorizationService = ServiceFactory.CreateAuthorizationService(c => { });

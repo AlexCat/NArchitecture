@@ -1,7 +1,5 @@
-﻿using NArchitecture.Security;
-using NArchitecture.Tests.Security;
+﻿using NArchitecture.Tests.Security;
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,17 +13,17 @@ namespace NArchitecture.Tests
         {
             var authorizedUser = UserFactory.CreateUser(i =>
             {
-                i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(1986, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
+                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
             });
 
             var unauthorizedUser = UserFactory.CreateUser(i =>
             {
-                i.AddClaim(new Claim(ClaimTypes.DateOfBirth, new DateTime(2006, 3, 10).ToString(), ClaimValueTypes.DateTime, "http://contoso.com"));
+                i.AddDateOfBirthClaim(new DateTime(2006, 3, 10));
             });
 
             var bus = BusFactory.CreateBus(options =>
             {
-                options.Authorization.Options.AddPolicy("Over21", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(21) }));
+                options.Authorization.Options.AddPolicy("Over21", p => p.AddRequirements(new MinimumAgeRequirement(21)));
                 options.Authorization.AddAuthorizationHandler<MinimumAgeHandler>();
                 options.AddMessageAuthorization<PurchaseAlcohol>("Over21");
             });

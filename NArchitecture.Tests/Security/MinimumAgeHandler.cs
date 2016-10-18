@@ -10,13 +10,13 @@ namespace NArchitecture.Tests.Security
         protected override Task Handle(AuthorizationHandlerContext context, MinimumAgeRequirement requirement)
         {
             if (!context.User.HasClaim(c => c.Type == ClaimTypes.DateOfBirth &&
-                                       c.Issuer == "http://contoso.com"))
+                                       c.Issuer == "http://example.com"))
             {
                 return Task.FromResult(0);
             }
 
             var dateOfBirth = Convert.ToDateTime(context.User.FindFirst(
-                c => c.Type == ClaimTypes.DateOfBirth && c.Issuer == "http://contoso.com").Value);
+                c => c.Type == ClaimTypes.DateOfBirth && c.Issuer == "http://example.com").Value);
 
             int calculatedAge = DateTime.Today.Year - dateOfBirth.Year;
             if (dateOfBirth > DateTime.Today.AddYears(-calculatedAge))

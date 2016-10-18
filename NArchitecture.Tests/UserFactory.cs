@@ -11,5 +11,10 @@ namespace NArchitecture.Tests
             configure(identity);
             return new ClaimsPrincipal(identity);
         }
+
+        public static void AddDateOfBirthClaim(this ClaimsIdentity identity, DateTime dateOfBirth)
+        {
+            identity.AddClaim(new Claim(ClaimTypes.DateOfBirth, dateOfBirth.ToString(), ClaimValueTypes.DateTime, "http://example.com"));
+        }
     }
 }

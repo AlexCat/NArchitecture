@@ -15,6 +15,16 @@ namespace NArchitecture.Security
             PolicyMap[name] = policy;
         }
 
+        public void AddPolicy(string name, Action<AuthorizationPolicyBuilder> configurePolicy)
+        {
+            Guard.AgainstNull(nameof(name), name);
+            Guard.AgainstNull(nameof(configurePolicy), configurePolicy);
+
+            var policyBuilder = new AuthorizationPolicyBuilder();
+            configurePolicy(policyBuilder);
+            PolicyMap[name] = policyBuilder.Build();
+        }
+
         public AuthorizationPolicy GetPolicy(string name)
         {
             Guard.AgainstNull(nameof(name), name);

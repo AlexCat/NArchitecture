@@ -51,6 +51,7 @@
     <Compile Include="IMessageAuthorization.cs" />
     <Compile Include="MessageAuthorization.cs" />
     <Compile Include="Security\AuthorizationComposition.cs" />
+    <Compile Include="Security\AuthorizationPolicyBuilder.cs" />
     <Compile Include="Security\IAuthorizeData.cs" />
     <Compile Include="ServiceCollectionExtensions.cs" />
     <Compile Include="Events\DefaultEventService.cs" />
