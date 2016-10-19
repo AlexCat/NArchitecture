@@ -15,5 +15,8 @@ cache:
 before_build:
   - nuget restore
 
+build:
+  project: NArchitecture.sln
+
 after_test:
   - cmd: .\coverage.cmd
