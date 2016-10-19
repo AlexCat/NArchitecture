@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FakeItEasy;
+using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -6,52 +8,67 @@ namespace NArchitecture.Tests
 {
     public class AuthorizationTests
     {
+        private class SuccessfulRequirement : IAuthorizationRequirement { }
+
+        private class SuccessfulAuthorizationHandler : AuthorizationHandler<SuccessfulRequirement>
+        {
+            protected override Task Handle(AuthorizationHandlerContext context, SuccessfulRequirement requirement)
+            {
+                context.Succeed(requirement);
+                return Task.FromResult(0);
+            }
+        }
+
         [Fact(DisplayName = "AuthorizationService returns true if handler succeeds")]
         public async Task SucceededRequirementTest()
         {
-            var user = UserFactory.CreateUser(i =>
-            {
-                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
-            });
+            var user = A.Fake<ClaimsPrincipal>();
+            var handler = new SuccessfulAuthorizationHandler();
+            var requirement = new SuccessfulRequirement();
+            var message = A.Fake<IMessage>();
+            var options = new AuthorizationOptions();
+            options.AddPolicy("CustomPolicy", p => p.AddRequirements(requirement));
+            var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[] { handler });
 
-            var authorizationService = ServiceFactory.CreateAuthorizationService(c =>
-            {
-                c.Options.AddPolicy("Over21", p => p.AddRequirements(new MinimumAgeRequirement(21)));
-                c.AddAuthorizationHandler<MinimumAgeHandler>();
-            });
+            Assert.True(await service.Authorize(user, message, "CustomPolicy"));
+        }
 
-            Assert.True(await authorizationService.Authorize(user, null, "Over21"));
+        private class EmptyRequirement : IAuthorizationRequirement { }
+
+        private class EmptyAuthorizationHandler : AuthorizationHandler<EmptyRequirement>
+        {
+            protected override Task Handle(AuthorizationHandlerContext context, EmptyRequirement requirement)
+            {
+                return Task.FromResult(0);
+            }
         }
 
         [Fact(DisplayName = "AuthorizationService returns false if handler does not succeeds")]
         public async Task FailedRequirementTest()
         {
-            var user = UserFactory.CreateUser(i =>
-            {
-                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
-            });
+            var user = A.Fake<ClaimsPrincipal>();
+            var handler = new EmptyAuthorizationHandler();
+            var requirement = new EmptyRequirement();
+            var message = A.Fake<IMessage>();
+            var options = new AuthorizationOptions();
+            options.AddPolicy("CustomPolicy", p => p.AddRequirements(requirement));
+            var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[] { handler });
 
-            var authorizationService = ServiceFactory.CreateAuthorizationService(c =>
-            {
-                c.Options.AddPolicy("Over40", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(40) }));
-                c.AddAuthorizationHandler<MinimumAgeHandler>();
-            });
-
-            Assert.False(await authorizationService.Authorize(user, null, "Over40"));
+            Assert.False(await service.Authorize(user, message, "CustomPolicy"));
         }
 
-        [Fact(DisplayName = "AuthorizationService returns false if there are no requirements")]
+        [Fact(DisplayName = "AuthorizationService throws exception if there is no policy")]
         public async Task NoRequirementTest()
         {
-            var user = UserFactory.CreateUser(i =>
+            var user = A.Fake<ClaimsPrincipal>();
+            var message = A.Fake<IMessage>();
+            var options = new AuthorizationOptions();
+            var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[0]);
+
+            await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
+                return service.Authorize(user, message, "CustomPolicy");
             });
-
-            var authorizationService = ServiceFactory.CreateAuthorizationService(c => { });
-            var requirements = new IAuthorizationRequirement[0];
-
-            Assert.False(await authorizationService.Authorize(user, null, requirements));
         }
     }
 }

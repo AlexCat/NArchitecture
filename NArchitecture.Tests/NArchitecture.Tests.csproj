@@ -74,28 +74,13 @@
   <ItemGroup>
     <Compile Include="AuthorizationPolicyTests.cs" />
     <Compile Include="AuthorizationTests.cs" />
-    <Compile Include="BusFactory.cs" />
     <Compile Include="BusOptionsTests.cs" />
     <Compile Include="BusTests.cs" />
-    <Compile Include="Requests\ComplexRequest.cs" />
-    <Compile Include="Requests\ComplexRequestHandler.cs" />
-    <Compile Include="Requests\ComplexRequestHandlerFailing.cs" />
-    <Compile Include="Requests\SimpleRequestHandlerFailing.cs" />
-    <Compile Include="RequestTests.cs" />
-    <Compile Include="EventTests.cs" />
-    <Compile Include="Events\SimpleEventHandlerFailing.cs" />
-    <Compile Include="Events\SimpleEvent.cs" />
-    <Compile Include="Events\SimpleEventHandler.cs" />
-    <Compile Include="Requests\SimpleRequest.cs" />
-    <Compile Include="Requests\SimpleRequestHandler.cs" />
-    <Compile Include="Security\PurchaseAlcohol.cs" />
-    <Compile Include="Security\MinimumAgeHandler.cs" />
-    <Compile Include="Security\MinimumAgeRequirement.cs" />
+    <Compile Include="DefaultRequestServiceTests.cs" />
+    <Compile Include="DefaultEventServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceFactory.cs" />
     <Compile Include="UserFactory.cs" />
-    <Compile Include="ValidationTests.cs" />
-    <Compile Include="Validation\SimpleMessage.cs" />
+    <Compile Include="DefaultValidationServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
