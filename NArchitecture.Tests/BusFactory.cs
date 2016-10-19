@@ -12,10 +12,5 @@ namespace NArchitecture.Tests
             var provider = services.BuildServiceProvider();
             return provider.GetService<IBus>();
         }
-
-        public static IBus CreateBusMock()
-        {
-            return new BusMock();
-        }
     }
 }
