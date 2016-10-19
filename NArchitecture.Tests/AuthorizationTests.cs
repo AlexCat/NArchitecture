@@ -44,14 +44,14 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "AuthorizationService returns false if handler does not succeeds")]
-        public async Task FailedRequirementTest()
+        public async Task UnauthorizedRequirementTest()
         {
             var user = A.Fake<ClaimsPrincipal>();
             var handler = new EmptyAuthorizationHandler();
             var requirement = new EmptyRequirement();
             var message = A.Fake<IMessage>();
             var options = new AuthorizationOptions();
-            options.AddPolicy("CustomPolicy", p => p.AddRequirements(requirement));
+            options.AddPolicy("CustomPolicy", new AuthorizationPolicy(new IAuthorizationRequirement[] { requirement }));
             var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[] { handler });
 
             Assert.False(await service.Authorize(user, message, "CustomPolicy"));
@@ -69,6 +69,31 @@ namespace NArchitecture.Tests
             {
                 return service.Authorize(user, message, "CustomPolicy");
             });
+        }
+
+        private class FailingRequirement : IAuthorizationRequirement { }
+
+        private class FailingAuthorizationHandler : AuthorizationHandler<FailingRequirement>
+        {
+            protected override Task Handle(AuthorizationHandlerContext context, FailingRequirement requirement)
+            {
+                context.Fail();
+                return Task.FromResult(0);
+            }
+        }
+
+        [Fact(DisplayName = "AuthorizationService returns false if handler fails")]
+        public async Task FailedRequirementTest()
+        {
+            var user = A.Fake<ClaimsPrincipal>();
+            var handler = new FailingAuthorizationHandler();
+            var requirement = new FailingRequirement();
+            var message = A.Fake<IMessage>();
+            var options = new AuthorizationOptions();
+            options.AddPolicy("CustomPolicy", p => p.AddRequirements(requirement));
+            var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[] { handler });
+
+            Assert.False(await service.Authorize(user, message, "CustomPolicy"));
         }
     }
 }
