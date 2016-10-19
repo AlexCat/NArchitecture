@@ -10,6 +10,7 @@ branches:
 
 cache:
   - packages
+  - tools
 
 before_build:
   - nuget restore
