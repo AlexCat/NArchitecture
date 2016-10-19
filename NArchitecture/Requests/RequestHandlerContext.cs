@@ -1,4 +1,4 @@
-﻿namespace NArchitecture.Requests
+﻿namespace NArchitecture
 {
     public class RequestHandlerContext
     {

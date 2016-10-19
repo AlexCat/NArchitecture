@@ -1,9 +1,8 @@
-﻿using NArchitecture.Security;
-using System;
+﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Tests.Security
+namespace NArchitecture.Tests
 {
     public class MinimumAgeHandler : AuthorizationHandler<MinimumAgeRequirement>
     {

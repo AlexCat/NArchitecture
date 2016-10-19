@@ -1,4 +1,4 @@
-﻿namespace NArchitecture.Tests.Requests
+﻿namespace NArchitecture.Tests
 {
     public class ComplexRequest : IRequest<int>
     {

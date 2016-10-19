@@ -1,5 +1,4 @@
-﻿using NArchitecture.Tests.Events;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Xunit;
 

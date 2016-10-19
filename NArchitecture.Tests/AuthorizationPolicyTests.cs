@@ -1,6 +1,4 @@
-﻿using NArchitecture.Security;
-using NArchitecture.Tests.Security;
-using System;
+﻿using System;
 using Xunit;
 
 namespace NArchitecture.Tests

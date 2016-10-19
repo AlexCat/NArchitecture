@@ -1,4 +1,4 @@
-﻿namespace NArchitecture.Tests.Events
+﻿namespace NArchitecture.Tests
 {
     public class SimpleEvent : IEvent
     {

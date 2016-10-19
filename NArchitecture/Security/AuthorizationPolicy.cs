@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NArchitecture.Security
+namespace NArchitecture
 {
     public class AuthorizationPolicy
     {

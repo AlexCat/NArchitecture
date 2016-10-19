@@ -1,4 +1,4 @@
-﻿namespace NArchitecture.Security
+﻿namespace NArchitecture
 {
     public class AuthorizationComposition : BaseComposition
     {

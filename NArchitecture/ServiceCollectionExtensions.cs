@@ -1,9 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using NArchitecture.Events;
-using NArchitecture.Requests;
-using NArchitecture.Security;
-using NArchitecture.Validation;
 using System;
 
 namespace NArchitecture

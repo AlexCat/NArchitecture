@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NArchitecture.Events
+namespace NArchitecture
 {
     public abstract class EventHandler<TEvent> : IEventHandler
         where TEvent : IEvent

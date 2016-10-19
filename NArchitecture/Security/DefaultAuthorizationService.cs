@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Security
+namespace NArchitecture
 {
     public class DefaultAuthorizationService : IAuthorizationService
     {

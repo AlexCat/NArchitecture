@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NArchitecture.Security
+namespace NArchitecture
 {
     public interface IAuthorizationHandler
     {

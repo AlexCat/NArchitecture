@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NArchitecture.Security
+namespace NArchitecture
 {
     public class AuthorizationOptions
     {

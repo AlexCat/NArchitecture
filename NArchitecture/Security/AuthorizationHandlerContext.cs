@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 
-namespace NArchitecture.Security
+namespace NArchitecture
 {
     public class AuthorizationHandlerContext
     {

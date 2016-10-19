@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Validation
+namespace NArchitecture
 {
     public class DefaultValidationService : IValidationService
     {

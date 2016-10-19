@@ -1,5 +1,4 @@
-﻿using NArchitecture.Security;
-using System;
+﻿using System;
 
 namespace NArchitecture
 {

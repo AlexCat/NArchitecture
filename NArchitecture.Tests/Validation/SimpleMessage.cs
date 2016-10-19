@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NArchitecture.Tests.Validation
+namespace NArchitecture.Tests
 {
     public class SimpleMessage : IMessage
     {

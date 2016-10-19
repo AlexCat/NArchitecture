@@ -1,7 +1,6 @@
-﻿using NArchitecture.Requests;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace NArchitecture.Tests.Requests
+namespace NArchitecture.Tests
 {
     public class ComplexRequestHandler : RequestHandler<ComplexRequest, int>
     {

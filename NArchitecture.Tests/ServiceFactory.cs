@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NArchitecture.Events;
-using NArchitecture.Requests;
-using NArchitecture.Security;
 using System;
 
 namespace NArchitecture.Tests

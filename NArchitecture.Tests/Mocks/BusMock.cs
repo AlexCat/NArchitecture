@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Tests.Mocks
+namespace NArchitecture.Tests
 {
     public class BusMock : IBus
     {

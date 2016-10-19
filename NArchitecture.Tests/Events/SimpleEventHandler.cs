@@ -1,7 +1,6 @@
-﻿using NArchitecture.Events;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace NArchitecture.Tests.Events
+namespace NArchitecture.Tests
 {
     public class SimpleEventHandler : EventHandler<SimpleEvent>
     {

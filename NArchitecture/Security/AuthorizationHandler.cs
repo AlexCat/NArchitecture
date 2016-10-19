@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Security
+namespace NArchitecture
 {
     public abstract class AuthorizationHandler<TRequirement> : IAuthorizationHandler
         where TRequirement : IAuthorizationRequirement

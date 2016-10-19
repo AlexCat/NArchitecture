@@ -1,8 +1,7 @@
-﻿using NArchitecture.Requests;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace NArchitecture.Tests.Requests
+namespace NArchitecture.Tests
 {
     public class SimpleRequestHandlerFailing : RequestHandler<SimpleRequest>
     {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NArchitecture.Tests.Mocks;
 using System;
 
 namespace NArchitecture.Tests

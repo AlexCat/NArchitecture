@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NArchitecture.Tests.Requests
+﻿namespace NArchitecture.Tests
 {
     public class SimpleRequest : IRequest
     {

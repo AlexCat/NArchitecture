@@ -1,4 +1,4 @@
-﻿namespace NArchitecture.Events
+﻿namespace NArchitecture
 {
     public class EventComposition : BaseComposition
     {

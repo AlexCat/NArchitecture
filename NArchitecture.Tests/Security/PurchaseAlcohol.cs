@@ -1,6 +1,4 @@
-﻿using NArchitecture.Security;
-
-namespace NArchitecture.Tests.Security
+﻿namespace NArchitecture.Tests
 {
     public class PurchaseAlcohol : IMessage
     {
