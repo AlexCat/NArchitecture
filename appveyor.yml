@@ -1,11 +1,11 @@
 version: '0.1.{build}'
 
 branches:
-	only:
-		-master
+  only:
+    - master
 
 cache:
-	- packages
+  - packages
 
 before_build:
-	- nuget restore
+  - nuget restore
