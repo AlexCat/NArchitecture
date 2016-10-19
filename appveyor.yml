@@ -32,9 +32,3 @@ after_test:
 
 artifacts:
   - path: '*.nupkg'
-
-deploy:
-  - provider: Environment
-    name: Production
-    on:
-      branch: master
