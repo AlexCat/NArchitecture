@@ -14,7 +14,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "ValidationService returns true if validation succeeds")]
-        public async Task SimpleValidMessageTest()
+        public async Task ValidateTest()
         {
             var bus = A.Fake<IBus>();
 
@@ -24,7 +24,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "ValidationService returns false if validation fails")]
-        public async Task SimpleInvalidMessageTest()
+        public async Task ValidateFailedTest()
         {
             var bus = A.Fake<IBus>();
 

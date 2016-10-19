@@ -8,7 +8,7 @@ namespace NArchitecture.Tests
     public class DefaultEventServiceTests
     {
         [Fact(DisplayName = "EventService can notify handlers with event")]
-        public async Task SendSimpleEventTest()
+        public async Task NotifyTest()
         {
             var handler = A.Fake<IEventHandler>();
             var bus = A.Fake<IBus>();
@@ -22,7 +22,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "EventService correctly handles handler failure")]
-        public async Task SendSimpleEventFailTest()
+        public async Task NotifyFailedTest()
         {
             var handler = A.Fake<IEventHandler>();
             var bus = A.Fake<IBus>();
@@ -39,7 +39,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "EventService correctly handles when there are no handlers")]
-        public async Task SendSimpleEventWithoutHandlerTest()
+        public async Task NotifyWithoutHandlerTest()
         {
             var bus = A.Fake<IBus>();
             var @event = A.Fake<IEvent>();

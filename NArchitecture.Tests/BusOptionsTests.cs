@@ -5,7 +5,7 @@ namespace NArchitecture.Tests
     public class BusOptionsTests
     {
         [Fact(DisplayName = "BusOptions can bind policy to message type")]
-        public void BusOptionsAddPolicyTest()
+        public void AddPolicyForTest()
         {
             var options = new BusOptions();
             options.AddPolicyFor<IMessage>("CustomPolicy");
@@ -13,7 +13,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "BusOptions return null policy for unknown message type")]
-        public void BusOptionsConfigureTest()
+        public void GetPolicyForTest()
         {
             var options = new BusOptions();
             Assert.Null(options.GetPolicyFor(typeof(IMessage)));

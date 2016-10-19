@@ -8,7 +8,7 @@ namespace NArchitecture.Tests
     public class DefaultRequestServiceTests
     {
         [Fact(DisplayName = "RequestService can handle request without response")]
-        public async Task SendSimpleRequest()
+        public async Task RequestNoResponseTest()
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IBus>();
@@ -23,7 +23,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "RequestService throws exception from handler for request without response")]
-        public async Task SendSimpleRequestFailTest()
+        public async Task RequestNoResponseFailedTest()
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IBus>();
@@ -40,7 +40,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "RequestService throws exception if there is no handler for given request without response")]
-        public async Task SendSimpleRequestWithoutHandlerTest()
+        public async Task RequestNoResponseNoHandlerTest()
         {
             var bus = A.Fake<IBus>();
             var request = A.Fake<IRequest>();
@@ -53,7 +53,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "RequestService throws exception if there are too many handlers for given request without response")]
-        public async Task SendSimpleRequestWithTooManyHandlersTest()
+        public async Task RequestNoResponseTooManyHandlersTest()
         {
             var handler1 = A.Fake<IRequestHandler>();
             var handler2 = A.Fake<IRequestHandler>();
@@ -71,7 +71,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "RequestService can handle request")]
-        public async Task SendComplexRequest()
+        public async Task RequestTest()
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IBus>();
@@ -86,7 +86,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "RequestService throws exception from handler for request")]
-        public async Task SendComplexRequestFailTest()
+        public async Task RequestFailedTest()
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IBus>();
@@ -103,7 +103,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "RequestService throws exception if there is no handler for given request")]
-        public async Task SendComplexRequestWithoutHandlerTest()
+        public async Task RequestNoHandlerTest()
         {
             var bus = A.Fake<IBus>();
             var request = A.Fake<IRequest<int>>();
@@ -116,7 +116,7 @@ namespace NArchitecture.Tests
         }
 
         [Fact(DisplayName = "RequestService throws exception if there are too many handlers for given request")]
-        public async Task SendComplexRequestWithTooManyHandlersTest()
+        public async Task RequestTooManyHandlersTest()
         {
             var handler1 = A.Fake<IRequestHandler>();
             var handler2 = A.Fake<IRequestHandler>();

@@ -90,13 +90,5 @@ namespace NArchitecture.Tests
 
             A.CallTo(() => authorization.Authorize(user, message, "CustomPolicy")).MustHaveHappened();
         }
-
-        [Fact(DisplayName = "ServiceCollectionExtensions can add Bus")]
-        public void BusServiceCollectionExtensionTest()
-        {
-            var services = new ServiceCollection();
-            services.AddBus(options => { });
-            services.BuildServiceProvider();
-        }
     }
 }
