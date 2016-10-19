@@ -11,6 +11,12 @@ branches:
 cache:
   - packages
 
+assembly_info:
+  patch: true
+  file: AssemblyInfo.cs
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+
 before_build:
   - nuget restore
 
