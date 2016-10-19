@@ -26,6 +26,15 @@ namespace NArchitecture.Tests
             Assert.True(handler.CanHandle(request));
         }
 
+        [Fact(DisplayName = "RequestHandler handles correct requests")]
+        public async Task HandlesTest()
+        {
+            var request = new Request();
+            var handler = new RequestHandler();
+            var context = A.Fake<RequestHandlerContext>();
+            await handler.Handle(context, request);
+        }
+
         [Fact(DisplayName = "RequestHandler can decline bad requests")]
         public void CannotHandleTest()
         {
@@ -64,6 +73,15 @@ namespace NArchitecture.Tests
             var request = new RequestWithResponse();
             var handler = new RequestWithResponseHandler();
             Assert.True(handler.CanHandle(request));
+        }
+
+        [Fact(DisplayName = "RequestHandler<> handles correct requests")]
+        public async Task HandlesWithResponseTest()
+        {
+            var request = new RequestWithResponse();
+            var handler = new RequestWithResponseHandler();
+            var context = A.Fake<RequestHandlerContext<int>>();
+            await handler.Handle(context, request);
         }
 
         [Fact(DisplayName = "RequestHandler<> can decline bad requests")]
