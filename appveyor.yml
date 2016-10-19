@@ -23,5 +23,8 @@ before_build:
 build:
   project: NArchitecture.sln
 
+after_build:
+  - nuget pack .\NArchitecture\NArchitecture.csproj -OutputDirectory <temp_path>
+
 after_test:
   - cmd: .\coverage.cmd
