@@ -1,44 +1,86 @@
-﻿using System.Threading.Tasks;
+﻿using FakeItEasy;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace NArchitecture.Tests
 {
     public class RequestHandlerTests
     {
-        private class RequestWithoutResponse : IRequest { }
+        private class Request : IRequest { }
 
-        private class RequestWithoutResponseHandler : RequestHandler<RequestWithoutResponse>
+        private class RequestHandler : RequestHandler<Request>
         {
-            protected override Task Handle(RequestHandlerContext context, RequestWithoutResponse request)
+            protected override Task Handle(RequestHandlerContext context, Request request)
             {
                 return Task.FromResult(0);
             }
         }
 
-        [Fact(DisplayName = "RequestHandler can confirm requests that it handles")]
+        [Fact(DisplayName = "RequestHandler can confirm requests")]
         public void CanHandleTest()
         {
-            var request = new RequestWithoutResponse();
-            var handler = new RequestWithoutResponseHandler();
+            var request = new Request();
+            var handler = new RequestHandler();
             Assert.True(handler.CanHandle(request));
         }
 
-        private class RequestWithResponse : IRequest { }
-
-        private class RequestWithResponseHandler : RequestHandler<RequestWithResponse>
+        [Fact(DisplayName = "RequestHandler can decline bad requests")]
+        public void CannotHandleTest()
         {
-            protected override Task Handle(RequestHandlerContext context, RequestWithResponse request)
+            var request = new RequestWithResponse();
+            var handler = new RequestHandler();
+            Assert.False(handler.CanHandle(request));
+        }
+
+        [Fact(DisplayName = "RequestHandler throws on bad request")]
+        public async Task ThrowsOnBadRequestTest()
+        {
+            var request = new RequestWithResponse();
+            var handler = new RequestHandler();
+            var context = A.Fake<RequestHandlerContext>();
+            await Assert.ThrowsAsync<ArgumentException>(() =>
+            {
+                return handler.Handle(context, request);
+            });
+        }
+
+        private class RequestWithResponse : IRequest<int> { }
+
+        private class RequestWithResponseHandler : RequestHandler<RequestWithResponse, int>
+        {
+            protected override Task Handle(RequestHandlerContext<int> context, RequestWithResponse request)
             {
                 return Task.FromResult(0);
             }
         }
 
-        [Fact(DisplayName = "RequestHandler can confirm requests with response that it handles")]
+        [Fact(DisplayName = "RequestHandler<> can confirm correct requests")]
         public void CanHandleWithResponseTest()
         {
             var request = new RequestWithResponse();
             var handler = new RequestWithResponseHandler();
             Assert.True(handler.CanHandle(request));
+        }
+
+        [Fact(DisplayName = "RequestHandler<> can decline bad requests")]
+        public void CannotHandleWithResponseTest()
+        {
+            var request = new Request();
+            var handler = new RequestWithResponseHandler();
+            Assert.False(handler.CanHandle(request));
+        }
+
+        [Fact(DisplayName = "RequestHandler<> throws on bad request")]
+        public async Task ThrowsOnBadRequestWithResponseTest()
+        {
+            var request = new Request();
+            var handler = new RequestWithResponseHandler();
+            var context = A.Fake<RequestHandlerContext>();
+            await Assert.ThrowsAsync<ArgumentException>(() =>
+            {
+                return handler.Handle(context, request);
+            });
         }
     }
 }
