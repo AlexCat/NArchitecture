@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor", "AppVeyor", "{AC0E1D35-E18C-4E40-8E06-8246E4172A32}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		coverage.cmd = coverage.cmd
 	EndProjectSection
 EndProject
 Global

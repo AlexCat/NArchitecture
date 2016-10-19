@@ -1,5 +1,9 @@
 version: '0.1.{build}'
 
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: IRUBTX12n3W43fS0cgsX0h4I1fjO8XUxt7gNlDIoCrGMpVSW6BSDscCEwHJEEy57
+
 branches:
   only:
     - master
@@ -9,3 +13,6 @@ cache:
 
 before_build:
   - nuget restore
+
+after_test:
+  - cmd: .\coverage.cmd

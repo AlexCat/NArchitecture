@@ -250,3 +250,9 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Tools
+tools/
+
+# Coverage report
+NArchitecture.Tests.xml
