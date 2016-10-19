@@ -28,3 +28,6 @@ after_build:
 
 after_test:
   - cmd: .\coverage.cmd
+
+artifacts:
+  - path: '*.nupkg'
