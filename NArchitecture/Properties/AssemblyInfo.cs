@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NArchitecture")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Architectural patterns for business layer.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Premysl Krajcovic")]
 [assembly: AssemblyProduct("NArchitecture")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

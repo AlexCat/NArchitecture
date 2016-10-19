@@ -81,6 +81,7 @@
     <Compile Include="Validation\IValidationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NArchitecture.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
