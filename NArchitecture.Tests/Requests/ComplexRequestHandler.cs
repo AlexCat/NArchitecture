@@ -4,7 +4,7 @@ namespace NArchitecture.Tests
 {
     public class ComplexRequestHandler : RequestHandler<ComplexRequest, int>
     {
-        protected override Task Handle(RequestHandlerContext<ComplexRequest, int> context)
+        protected override Task Handle(RequestHandlerContext<int> context, ComplexRequest request)
         {
             return Task.FromResult(0);
         }

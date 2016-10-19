@@ -4,6 +4,6 @@ namespace NArchitecture
 {
     public interface IEventHandler
     {
-        Task Handle(EventHandlerContext context);
+        Task Handle(EventHandlerContext context, IEvent @event);
     }
 }

@@ -5,7 +5,7 @@ namespace NArchitecture.Tests
 {
     public class SimpleRequestHandlerFailing : RequestHandler<SimpleRequest>
     {
-        protected override Task Handle(RequestHandlerContext<SimpleRequest> context)
+        protected override Task Handle(RequestHandlerContext context, SimpleRequest request)
         {
             throw new InvalidOperationException();
         }

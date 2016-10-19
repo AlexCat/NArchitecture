@@ -5,6 +5,6 @@ namespace NArchitecture
     public interface IRequestHandler
     {
         bool CanHandle(IRequest request);
-        Task Handle(RequestHandlerContext context);
+        Task Handle(RequestHandlerContext context, IRequest request);
     }
 }

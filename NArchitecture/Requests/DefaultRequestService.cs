@@ -20,9 +20,9 @@ namespace NArchitecture
             Guard.AgainstNull(nameof(request), request);
 
             var handler = Find(request);
-            var context = CreateRequestHandlerContext(bus, request);
+            var context = new RequestHandlerContext(bus);
 
-            return handler.Handle(context);
+            return handler.Handle(context, request);
         }
 
         public async Task<TResponse> Request<TResponse>(IBus bus, IRequest<TResponse> request)
@@ -31,23 +31,11 @@ namespace NArchitecture
             Guard.AgainstNull(nameof(request), request);
 
             var handler = Find(request);
-            var context = CreateRequestHandlerContext(bus, request);
+            var context = new RequestHandlerContext<TResponse>(bus);
 
-            await handler.Handle(context);
+            await handler.Handle(context, request);
 
-            return context.Response == null ? default(TResponse) : (TResponse)context.Response;
-        }
-
-        private RequestHandlerContext CreateRequestHandlerContext(IBus bus, IRequest request)
-        {
-            Type contextType = typeof(RequestHandlerContext<>).MakeGenericType(request.GetType());
-            return (RequestHandlerContext)Activator.CreateInstance(contextType, bus, request);
-        }
-
-        private RequestHandlerContext CreateRequestHandlerContext<TResponse>(IBus bus, IRequest<TResponse> request)
-        {
-            Type contextType = typeof(RequestHandlerContext<,>).MakeGenericType(request.GetType(), typeof(TResponse));
-            return (RequestHandlerContext)Activator.CreateInstance(contextType, bus, request);
+            return context.Response == null ? default(TResponse) : context.Response;
         }
 
         private IRequestHandler Find(IRequest request)

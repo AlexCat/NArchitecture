@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace NArchitecture
 {
@@ -10,13 +11,17 @@ namespace NArchitecture
             return request is TRequest;
         }
 
-        public virtual Task Handle(RequestHandlerContext context)
+        public virtual Task Handle(RequestHandlerContext context, IRequest request)
         {
-            var requestContext = (RequestHandlerContext<TRequest>)context;
-            return Handle(requestContext);
+            if (!CanHandle(request))
+            {
+                throw new ArgumentException($"Cannot handle request of type {request.GetType().Name}", nameof(request));
+            }
+
+            return Handle(context, (TRequest)request);
         }
 
-        protected abstract Task Handle(RequestHandlerContext<TRequest> context);
+        protected abstract Task Handle(RequestHandlerContext context, TRequest request);
     }
 
     public abstract class RequestHandler<TRequest, TResponse> : IRequestHandler
@@ -27,12 +32,16 @@ namespace NArchitecture
             return request is TRequest;
         }
 
-        public virtual async Task Handle(RequestHandlerContext context)
+        public virtual async Task Handle(RequestHandlerContext context, IRequest request)
         {
-            var requestContext = (RequestHandlerContext<TRequest, TResponse>)context;
-            await Handle(requestContext);
+            if (!CanHandle(request))
+            {
+                throw new ArgumentException($"Cannot handle request of type {request.GetType().Name}", nameof(request));
+            }
+
+            await Handle((RequestHandlerContext<TResponse>)context, (TRequest)request);
         }
 
-        protected abstract Task Handle(RequestHandlerContext<TRequest, TResponse> context);
+        protected abstract Task Handle(RequestHandlerContext<TResponse> context, TRequest request);
     }
 }

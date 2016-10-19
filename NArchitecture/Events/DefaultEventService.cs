@@ -14,20 +14,19 @@ namespace NArchitecture
             this.handlers = handlers.ToArray();
         }
 
-        public async Task Notify<TEvent>(IBus bus, TEvent @event)
-            where TEvent : IEvent
+        public async Task Notify(IBus bus, IEvent @event)
         {
             Guard.AgainstNull(nameof(bus), bus);
             Guard.AgainstNull(nameof(@event), @event);
 
-            var context = new EventHandlerContext<TEvent>(bus, @event);
+            var context = new EventHandlerContext(bus);
             var exceptions = new List<Exception>();
 
             foreach(var handler in handlers)
             {
                 try
                 {
-                    await handler.Handle(context);
+                    await handler.Handle(context, @event);
                 }
                 catch(Exception ex)
                 {
