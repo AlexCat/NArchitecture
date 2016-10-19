@@ -32,12 +32,10 @@ namespace NArchitecture
             this.authorizationService = authorizationService;
         }
 
-        public async Task<bool> Authorize(ClaimsPrincipal user, IMessage message)
+        public Task<bool> Authorize(ClaimsPrincipal user, IMessage message)
         {
-            var messageAuthorization = options.GetMessageAuthorization(message.GetType());
-            var tasks = messageAuthorization.Select(a => authorizationService.Authorize(user, message, a.Policy));
-            var results = await Task.WhenAll(tasks);
-            return results.All(r => r);
+            var policyName = options.GetPolicyFor(message.GetType());
+            return authorizationService.Authorize(user, message, policyName);
         }
 
         public Task Notify(IEvent @event)

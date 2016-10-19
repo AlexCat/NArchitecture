@@ -11,5 +11,13 @@ namespace NArchitecture
                 throw new ArgumentNullException(argumentName);
             }
         }
+
+        public static void AgainstEmptyString(string argumentName, string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException("Cannot be null or empty", argumentName);
+            }
+        }
     }
 }

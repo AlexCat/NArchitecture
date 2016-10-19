@@ -1,40 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace NArchitecture
 {
     public class BusOptions
     {
+        private IDictionary<Type, string> PolicyMap { get; } =
+            new Dictionary<Type, string>();
+
         public EventComposition Events { get; }
         public RequestComposition Requests { get; }
         public AuthorizationComposition Authorization { get; }
-        public IList<IMessageAuthorization> MessageAuthorizations { get; }
 
         public BusOptions()
         {
             Events = new EventComposition();
             Requests = new RequestComposition();
             Authorization = new AuthorizationComposition();
-            MessageAuthorizations = new List<IMessageAuthorization>();
         }
 
-        public void AddMessageAuthorization<TMessage>(string policy)
+        public void AddPolicyFor<TMessage>(string policy)
             where TMessage : IMessage
         {
-            MessageAuthorizations.Add(new MessageAuthorization(typeof(TMessage), policy, null));
+            Guard.AgainstEmptyString(nameof(policy), policy);
+
+            AddPolicyFor(typeof(TMessage), policy);
         }
 
-        public IMessageAuthorization[] GetMessageAuthorization(Type messageType)
+        public void AddPolicyFor(Type messageType, string policy)
         {
-            return MessageAuthorizations
-                .Where(p => p.MessageType == messageType)
-                .ToArray();
+            Guard.AgainstNull(nameof(messageType), messageType);
+            Guard.AgainstEmptyString(nameof(policy), policy);
+
+            PolicyMap[messageType] = policy;
         }
 
-        public void ConfigureAuthorization(Action<AuthorizationOptions> configure)
+        public string GetPolicyFor(Type messageType)
         {
-            configure(Authorization.Options);
+            Guard.AgainstNull(nameof(messageType), messageType);
+
+            if (!PolicyMap.ContainsKey(messageType))
+            {
+                return null;
+            }
+
+            return PolicyMap[messageType];
         }
     }
 }

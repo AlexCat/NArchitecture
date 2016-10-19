@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NArchitecture
 {
-    public class BaseComposition
+    public abstract class BaseComposition
     {
         protected Type serviceType;
         protected readonly IList<Type> handlers;

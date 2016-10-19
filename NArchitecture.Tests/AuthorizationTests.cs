@@ -33,7 +33,7 @@ namespace NArchitecture.Tests
 
             var authorizationService = ServiceFactory.CreateAuthorizationService(c =>
             {
-                c.Options.AddPolicy("Over40", p => p.AddRequirements(new MinimumAgeRequirement(40)));
+                c.Options.AddPolicy("Over40", new AuthorizationPolicy(new IAuthorizationRequirement[] { new MinimumAgeRequirement(40) }));
                 c.AddAuthorizationHandler<MinimumAgeHandler>();
             });
 

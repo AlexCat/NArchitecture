@@ -75,6 +75,7 @@
     <Compile Include="AuthorizationPolicyTests.cs" />
     <Compile Include="AuthorizationTests.cs" />
     <Compile Include="BusFactory.cs" />
+    <Compile Include="BusOptionsTests.cs" />
     <Compile Include="BusTests.cs" />
     <Compile Include="Requests\ComplexRequest.cs" />
     <Compile Include="Requests\ComplexRequestHandler.cs" />

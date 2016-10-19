@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FakeItEasy;
+using Microsoft.Extensions.DependencyInjection;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -7,28 +9,94 @@ namespace NArchitecture.Tests
 {
     public class BusTests
     {
-        [Fact(DisplayName = "Bus authorizes the message according to the configuration")]
-        public async Task PurchaseAlcoholAuthorizationTest()
+        [Fact(DisplayName = "Bus routes the event to EventService")]
+        public async Task BusNotifyTest()
         {
-            var authorizedUser = UserFactory.CreateUser(i =>
-            {
-                i.AddDateOfBirthClaim(new DateTime(1986, 3, 10));
-            });
+            var options = new BusOptions();
+            var events = A.Fake<IEventService>();
+            var requests = A.Fake<IRequestService>();
+            var validation = A.Fake<IValidationService>();
+            var authorization = A.Fake<IAuthorizationService>();
+            var bus = new Bus(options, events, requests, validation, authorization);
 
-            var unauthorizedUser = UserFactory.CreateUser(i =>
-            {
-                i.AddDateOfBirthClaim(new DateTime(2006, 3, 10));
-            });
+            var @event = A.Fake<IEvent>();
+            await bus.Notify(@event);
 
-            var bus = BusFactory.CreateBus(options =>
-            {
-                options.Authorization.Options.AddPolicy("Over21", p => p.AddRequirements(new MinimumAgeRequirement(21)));
-                options.Authorization.AddAuthorizationHandler<MinimumAgeHandler>();
-                options.AddMessageAuthorization<PurchaseAlcohol>("Over21");
-            });
+            A.CallTo(() => events.Notify(bus, @event)).MustHaveHappened();
+        }
 
-            Assert.True(await bus.Authorize(authorizedUser, new PurchaseAlcohol()));
-            Assert.False(await bus.Authorize(unauthorizedUser, new PurchaseAlcohol()));
+        [Fact(DisplayName = "Bus routes the request to RequestService")]
+        public async Task BusRequestTest()
+        {
+            var options = new BusOptions();
+            var events = A.Fake<IEventService>();
+            var requests = A.Fake<IRequestService>();
+            var validation = A.Fake<IValidationService>();
+            var authorization = A.Fake<IAuthorizationService>();
+            var bus = new Bus(options, events, requests, validation, authorization);
+
+            var request = A.Fake<IRequest>();
+            await bus.Request(request);
+
+            A.CallTo(() => requests.Request(bus, request)).MustHaveHappened();
+        }
+
+        [Fact(DisplayName = "Bus routes the request with response to RequestService")]
+        public async Task BusRequestWithResponseTest()
+        {
+            var options = new BusOptions();
+            var events = A.Fake<IEventService>();
+            var requests = A.Fake<IRequestService>();
+            var validation = A.Fake<IValidationService>();
+            var authorization = A.Fake<IAuthorizationService>();
+            var bus = new Bus(options, events, requests, validation, authorization);
+
+            var request = A.Fake<IRequest<int>>();
+            await bus.Request(request);
+
+            A.CallTo(() => requests.Request(bus, request)).MustHaveHappened();
+        }
+
+        [Fact(DisplayName = "Bus routes the validation to ValidationService")]
+        public async Task BusValidationTest()
+        {
+            var options = new BusOptions();
+            var events = A.Fake<IEventService>();
+            var requests = A.Fake<IRequestService>();
+            var validation = A.Fake<IValidationService>();
+            var authorization = A.Fake<IAuthorizationService>();
+            var bus = new Bus(options, events, requests, validation, authorization);
+
+            var message = A.Fake<IMessage>();
+            await bus.Validate(message);
+
+            A.CallTo(() => validation.Validate(message)).MustHaveHappened();
+        }
+
+        [Fact(DisplayName = "Bus routes the authorization to AuthorizationService")]
+        public async Task BusAuthorizationTest()
+        {
+            var options = new BusOptions();
+            var events = A.Fake<IEventService>();
+            var requests = A.Fake<IRequestService>();
+            var validation = A.Fake<IValidationService>();
+            var authorization = A.Fake<IAuthorizationService>();
+            var bus = new Bus(options, events, requests, validation, authorization);
+
+            var user = A.Fake<ClaimsPrincipal>();
+            var message = A.Fake<IMessage>();
+            options.AddPolicyFor(message.GetType(), "CustomPolicy");
+            await bus.Authorize(user, message);
+
+            A.CallTo(() => authorization.Authorize(user, message, "CustomPolicy")).MustHaveHappened();
+        }
+
+        [Fact(DisplayName = "ServiceCollectionExtensions can add Bus")]
+        public void BusServiceCollectionExtensionTest()
+        {
+            var services = new ServiceCollection();
+            services.AddBus(options => { });
+            services.BuildServiceProvider();
         }
     }
 }
