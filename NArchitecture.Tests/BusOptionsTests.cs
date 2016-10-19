@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace NArchitecture.Tests
 {
@@ -17,6 +18,16 @@ namespace NArchitecture.Tests
         {
             var options = new BusOptions();
             Assert.Null(options.GetPolicyFor(typeof(IMessage)));
+        }
+
+        [Fact(DisplayName = "BusOptions throws if message bound to empty policy")]
+        public void AddEmptyPolicyForTest()
+        {
+            var options = new BusOptions();
+            Assert.Throws<ArgumentException>(() =>
+            {
+                options.AddPolicyFor<IMessage>("");
+            });
         }
     }
 }

@@ -14,6 +14,8 @@ namespace NArchitecture.Tests
         {
             protected override Task Handle(AuthorizationHandlerContext context, SuccessfulRequirement requirement)
             {
+                Assert.NotNull(context.Message);
+                Assert.NotNull(context.User);
                 context.Succeed(requirement);
                 return Task.FromResult(0);
             }
@@ -39,6 +41,8 @@ namespace NArchitecture.Tests
         {
             protected override Task Handle(AuthorizationHandlerContext context, EmptyRequirement requirement)
             {
+                Assert.NotNull(context.Message);
+                Assert.NotNull(context.User);
                 return Task.FromResult(0);
             }
         }
@@ -77,6 +81,8 @@ namespace NArchitecture.Tests
         {
             protected override Task Handle(AuthorizationHandlerContext context, FailingRequirement requirement)
             {
+                Assert.NotNull(context.Message);
+                Assert.NotNull(context.User);
                 context.Fail();
                 return Task.FromResult(0);
             }
