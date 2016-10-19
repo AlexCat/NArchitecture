@@ -83,6 +83,7 @@ namespace NArchitecture.Tests
             {
                 Assert.NotNull(context.Message);
                 Assert.NotNull(context.User);
+                Assert.False(context.HasFailed);
                 context.Fail();
                 return Task.FromResult(0);
             }
