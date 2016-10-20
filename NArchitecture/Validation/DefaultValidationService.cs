@@ -9,7 +9,7 @@ namespace NArchitecture
         {
             var validationContext = new ValidationContext(message);
             Validator.ValidateObject(message, validationContext);
-            return Task.FromResult(0);
+            return TaskCache.CompletedTask;
         }
     }
 }

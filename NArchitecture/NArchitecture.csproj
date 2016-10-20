@@ -77,6 +77,7 @@
     <Compile Include="Security\IAuthorizationHandler.cs" />
     <Compile Include="Security\IAuthorizationService.cs" />
     <Compile Include="Security\IAuthorizationRequirement.cs" />
+    <Compile Include="TaskCache.cs" />
     <Compile Include="Validation\DefaultValidationService.cs" />
     <Compile Include="Validation\IValidationService.cs" />
   </ItemGroup>
