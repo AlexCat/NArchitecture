@@ -7,8 +7,8 @@ namespace NArchitecture
     {
         Task<bool> Authorize(ClaimsPrincipal user, IMessage message);
         Task Notify(ClaimsPrincipal user, IEvent @event);
-        Task Request(IRequest request);
-        Task<TResponse> Request<TResponse>(IRequest<TResponse> request);
+        Task Request(ClaimsPrincipal user, IRequest request);
+        Task<TResponse> Request<TResponse>(ClaimsPrincipal user, IRequest<TResponse> request);
         Task Validate(IMessage message);
     }
 }

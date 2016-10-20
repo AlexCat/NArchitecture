@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace NArchitecture
 {
     public interface IRequestService
     {
-        Task Request(IServiceBus bus, IRequest request); 
-        Task<TResponse> Request<TResponse>(IServiceBus bus, IRequest<TResponse> request);
+        Task Request(IServiceBus bus, ClaimsPrincipal user, IRequest request); 
+        Task<TResponse> Request<TResponse>(IServiceBus bus, ClaimsPrincipal user, IRequest<TResponse> request);
     }
 }

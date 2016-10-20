@@ -1,5 +1,4 @@
 ﻿using FakeItEasy;
-using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
@@ -35,11 +34,12 @@ namespace NArchitecture.Tests
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
             var bus = new ServiceBus(options, events, requests, validation, authorization);
+            var user = A.Fake<ClaimsPrincipal>();
 
             var request = A.Fake<IRequest>();
-            await bus.Request(request);
+            await bus.Request(user, request);
 
-            A.CallTo(() => requests.Request(bus, request)).MustHaveHappened();
+            A.CallTo(() => requests.Request(bus, user, request)).MustHaveHappened();
         }
 
         [Fact(DisplayName = "ServiceBus routes the request with response to RequestService")]
@@ -51,11 +51,12 @@ namespace NArchitecture.Tests
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
             var bus = new ServiceBus(options, events, requests, validation, authorization);
+            var user = A.Fake<ClaimsPrincipal>();
 
             var request = A.Fake<IRequest<int>>();
-            await bus.Request(request);
+            await bus.Request(user, request);
 
-            A.CallTo(() => requests.Request(bus, request)).MustHaveHappened();
+            A.CallTo(() => requests.Request(bus, user, request)).MustHaveHappened();
         }
 
         [Fact(DisplayName = "ServiceBus routes the validation to ValidationService")]

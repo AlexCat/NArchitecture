@@ -43,14 +43,14 @@ namespace NArchitecture
             return eventService.Notify(this, user, @event);
         }
 
-        public Task Request(IRequest request)
+        public Task Request(ClaimsPrincipal user, IRequest request)
         {
-            return requestService.Request(this, request);
+            return requestService.Request(this, user, request);
         }
 
-        public Task<TResponse> Request<TResponse>(IRequest<TResponse> request)
+        public Task<TResponse> Request<TResponse>(ClaimsPrincipal user, IRequest<TResponse> request)
         {
-            return requestService.Request<TResponse>(this, request);
+            return requestService.Request<TResponse>(this, user, request);
         }
 
         public Task Validate(IMessage message)

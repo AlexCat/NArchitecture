@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -12,12 +13,13 @@ namespace NArchitecture.Tests
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
             A.CallTo(() => handler.CanHandle(request)).Returns(true);
 
-            await service.Request(bus, request);
+            await service.Request(bus, user, request);
 
             A.CallTo(() => handler.Handle(A<RequestHandlerContext>.Ignored, request)).MustHaveHappened();
         }
@@ -27,6 +29,7 @@ namespace NArchitecture.Tests
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
@@ -35,7 +38,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return service.Request(bus, request);
+                return service.Request(bus, user, request);
             });
         }
 
@@ -43,12 +46,13 @@ namespace NArchitecture.Tests
         public async Task RequestNoResponseNoHandlerTest()
         {
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[0]);
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return service.Request(bus, request);
+                return service.Request(bus, user, request);
             });
         }
 
@@ -58,6 +62,7 @@ namespace NArchitecture.Tests
             var handler1 = A.Fake<IRequestHandler>();
             var handler2 = A.Fake<IRequestHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler1, handler2 });
 
@@ -66,7 +71,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return service.Request(bus, request);
+                return service.Request(bus, user, request);
             });
         }
 
@@ -75,12 +80,13 @@ namespace NArchitecture.Tests
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
             A.CallTo(() => handler.CanHandle(request)).Returns(true);
 
-            await service.Request(bus, request);
+            await service.Request(bus, user, request);
 
             A.CallTo(() => handler.Handle(A<RequestHandlerContext>.Ignored, request)).MustHaveHappened();
         }
@@ -90,6 +96,7 @@ namespace NArchitecture.Tests
         {
             var handler = A.Fake<IRequestHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
@@ -98,7 +105,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return service.Request(bus, request);
+                return service.Request(bus, user, request);
             });
         }
 
@@ -106,12 +113,13 @@ namespace NArchitecture.Tests
         public async Task RequestNoHandlerTest()
         {
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[0]);
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return service.Request(bus, request);
+                return service.Request(bus, user, request);
             });
         }
 
@@ -121,6 +129,7 @@ namespace NArchitecture.Tests
             var handler1 = A.Fake<IRequestHandler>();
             var handler2 = A.Fake<IRequestHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler1, handler2 });
 
@@ -129,7 +138,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return service.Request(bus, request);
+                return service.Request(bus, user, request);
             });
         }
     }

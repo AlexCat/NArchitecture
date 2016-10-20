@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NArchitecture
@@ -14,24 +15,26 @@ namespace NArchitecture
             this.handlers = handlers.ToArray();
         }
 
-        public Task Request(IServiceBus bus, IRequest request)
+        public Task Request(IServiceBus bus, ClaimsPrincipal user, IRequest request)
         {
             Guard.AgainstNull(nameof(bus), bus);
+            Guard.AgainstNull(nameof(user), user);
             Guard.AgainstNull(nameof(request), request);
 
             var handler = Find(request);
-            var context = new RequestHandlerContext(bus);
+            var context = new RequestHandlerContext(bus, user);
 
             return handler.Handle(context, request);
         }
 
-        public async Task<TResponse> Request<TResponse>(IServiceBus bus, IRequest<TResponse> request)
+        public async Task<TResponse> Request<TResponse>(IServiceBus bus, ClaimsPrincipal user, IRequest<TResponse> request)
         {
             Guard.AgainstNull(nameof(bus), bus);
+            Guard.AgainstNull(nameof(user), user);
             Guard.AgainstNull(nameof(request), request);
 
             var handler = Find(request);
-            var context = new RequestHandlerContext<TResponse>(bus);
+            var context = new RequestHandlerContext<TResponse>(bus, user);
 
             await handler.Handle(context, request);
 
