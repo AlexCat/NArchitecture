@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace NArchitecture
 {
     public interface IEventService
     {
-        Task Notify(IServiceBus bus, IEvent @event);
+        Task Notify(IServiceBus bus, ClaimsPrincipal user, IEvent @event);
     }
 }

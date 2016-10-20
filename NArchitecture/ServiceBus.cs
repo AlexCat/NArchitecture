@@ -38,9 +38,9 @@ namespace NArchitecture
             return authorizationService.Authorize(user, message, policyName);
         }
 
-        public Task Notify(IEvent @event)
+        public Task Notify(ClaimsPrincipal user, IEvent @event)
         {
-            return eventService.Notify(this, @event);
+            return eventService.Notify(this, user, @event);
         }
 
         public Task Request(IRequest request)

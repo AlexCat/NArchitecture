@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NArchitecture
@@ -14,12 +15,13 @@ namespace NArchitecture
             this.handlers = handlers.ToArray();
         }
 
-        public async Task Notify(IServiceBus bus, IEvent @event)
+        public async Task Notify(IServiceBus bus, ClaimsPrincipal user, IEvent @event)
         {
             Guard.AgainstNull(nameof(bus), bus);
+            Guard.AgainstNull(nameof(user), user);
             Guard.AgainstNull(nameof(@event), @event);
 
-            var context = new EventHandlerContext(bus);
+            var context = new EventHandlerContext(bus, user);
             var exceptions = new List<Exception>();
 
             foreach(var handler in handlers)

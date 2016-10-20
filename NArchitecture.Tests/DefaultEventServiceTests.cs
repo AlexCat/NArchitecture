@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Xunit;
 using FakeItEasy;
+using System.Security.Claims;
 
 namespace NArchitecture.Tests
 {
@@ -12,11 +13,12 @@ namespace NArchitecture.Tests
         {
             var handler = A.Fake<IEventHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var @event = A.Fake<IEvent>();
 
             var service = new DefaultEventService(new IEventHandler[] { handler });
 
-            await service.Notify(bus, @event);
+            await service.Notify(bus, user, @event);
 
             A.CallTo(() => handler.Handle(A<EventHandlerContext>.Ignored, @event)).MustHaveHappened();
         }
@@ -26,6 +28,7 @@ namespace NArchitecture.Tests
         {
             var handler = A.Fake<IEventHandler>();
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var @event = A.Fake<IEvent>();
 
             var service = new DefaultEventService(new IEventHandler[] { handler });
@@ -34,7 +37,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<AggregateException>(() =>
             {
-                return service.Notify(bus, @event);
+                return service.Notify(bus, user, @event);
             });
         }
 
@@ -42,11 +45,12 @@ namespace NArchitecture.Tests
         public async Task NotifyWithoutHandlerTest()
         {
             var bus = A.Fake<IServiceBus>();
+            var user = A.Fake<ClaimsPrincipal>();
             var @event = A.Fake<IEvent>();
 
             var service = new DefaultEventService(new IEventHandler[0]);
 
-            await service.Notify(bus, @event);
+            await service.Notify(bus, user, @event);
         }
     }
 }
