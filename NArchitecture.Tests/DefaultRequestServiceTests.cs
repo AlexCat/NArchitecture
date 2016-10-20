@@ -11,7 +11,7 @@ namespace NArchitecture.Tests
         public async Task RequestNoResponseTest()
         {
             var handler = A.Fake<IRequestHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
@@ -26,7 +26,7 @@ namespace NArchitecture.Tests
         public async Task RequestNoResponseFailedTest()
         {
             var handler = A.Fake<IRequestHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
@@ -42,7 +42,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "RequestService throws exception if there is no handler for given request without response")]
         public async Task RequestNoResponseNoHandlerTest()
         {
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[0]);
 
@@ -57,7 +57,7 @@ namespace NArchitecture.Tests
         {
             var handler1 = A.Fake<IRequestHandler>();
             var handler2 = A.Fake<IRequestHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler1, handler2 });
 
@@ -74,7 +74,7 @@ namespace NArchitecture.Tests
         public async Task RequestTest()
         {
             var handler = A.Fake<IRequestHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
@@ -89,7 +89,7 @@ namespace NArchitecture.Tests
         public async Task RequestFailedTest()
         {
             var handler = A.Fake<IRequestHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler });
 
@@ -105,7 +105,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "RequestService throws exception if there is no handler for given request")]
         public async Task RequestNoHandlerTest()
         {
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[0]);
 
@@ -120,7 +120,7 @@ namespace NArchitecture.Tests
         {
             var handler1 = A.Fake<IRequestHandler>();
             var handler2 = A.Fake<IRequestHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var request = A.Fake<IRequest<int>>();
             var service = new DefaultRequestService(new IRequestHandler[] { handler1, handler2 });
 

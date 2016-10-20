@@ -6,13 +6,13 @@ namespace NArchitecture
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddBus(
-            this IServiceCollection services, Action<BusOptions> configure)
+        public static IServiceCollection AddServiceBus(
+            this IServiceCollection services, Action<ServiceBusOptions> configure)
         {
             Guard.AgainstNull(nameof(services), services);
             Guard.AgainstNull(nameof(configure), configure);
 
-            var options = new BusOptions();
+            var options = new ServiceBusOptions();
             configure(options);
             return AddBus(services, options);
         }
@@ -60,14 +60,14 @@ namespace NArchitecture
         }
 
         private static IServiceCollection AddBus(
-            this IServiceCollection services, BusOptions options)
+            this IServiceCollection services, ServiceBusOptions options)
         {
             services = AddEventService(services, options.Events);
             services = AddRequestService(services, options.Requests);
             services = AddAuthorizationService(services, options.Authorization);
             services = AddValidationService(services);
             services.AddSingleton(options);
-            services.TryAdd(ServiceDescriptor.Transient<IBus, Bus>());
+            services.TryAdd(ServiceDescriptor.Transient<IServiceBus, ServiceBus>());
             return services;
         }
 

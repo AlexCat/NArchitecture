@@ -13,7 +13,7 @@ namespace NArchitecture.Tests
         {
             protected override Task Handle(RequestHandlerContext context, Request request)
             {
-                Assert.NotNull(context.Bus);
+                Assert.NotNull(context.ServiceBus);
                 return TaskCache.CompletedTask;
             }
         }
@@ -61,7 +61,7 @@ namespace NArchitecture.Tests
         {
             protected override Task Handle(RequestHandlerContext<int> context, RequestWithResponse request)
             {
-                Assert.NotNull(context.Bus);
+                Assert.NotNull(context.ServiceBus);
                 context.Response = default(int);
                 return TaskCache.CompletedTask;
             }

@@ -2,11 +2,11 @@
 {
     public class EventHandlerContext
     {
-        public IBus Bus { get; }
+        public IServiceBus ServiceBus { get; }
 
-        public EventHandlerContext(IBus bus)
+        public EventHandlerContext(IServiceBus bus)
         {
-            Bus = bus;
+            ServiceBus = bus;
         }
     }
 }

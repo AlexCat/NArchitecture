@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace NArchitecture
 {
-    public interface IBus
+    public interface IServiceBus
     {
         Task<bool> Authorize(ClaimsPrincipal user, IMessage message);
         Task Notify(IEvent @event);

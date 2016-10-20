@@ -12,7 +12,7 @@ namespace NArchitecture.Tests
         {
             protected override Task Handle(EventHandlerContext context, Event @event)
             {
-                Assert.NotNull(context.Bus);
+                Assert.NotNull(context.ServiceBus);
                 return TaskCache.CompletedTask;
             }
         }

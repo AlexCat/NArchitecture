@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseComposition.cs" />
-    <Compile Include="Bus.cs" />
-    <Compile Include="BusOptions.cs" />
+    <Compile Include="ServiceBus.cs" />
+    <Compile Include="ServiceBusOptions.cs" />
     <Compile Include="Events\EventHandlerContext.cs" />
     <Compile Include="Security\AuthorizationComposition.cs" />
     <Compile Include="Security\AuthorizationPolicyBuilder.cs" />
@@ -57,7 +57,7 @@
     <Compile Include="Events\EventComposition.cs" />
     <Compile Include="Events\IEventService.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="IBus.cs" />
+    <Compile Include="IServiceBus.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Requests\DefaultRequestService.cs" />

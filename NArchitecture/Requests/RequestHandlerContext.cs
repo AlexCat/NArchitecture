@@ -2,11 +2,11 @@
 {
     public class RequestHandlerContext
     {
-        public IBus Bus { get; }
+        public IServiceBus ServiceBus { get; }
 
-        public RequestHandlerContext(IBus bus)
+        public RequestHandlerContext(IServiceBus bus)
         {
-            Bus = bus;
+            ServiceBus = bus;
         }
     }
 
@@ -14,6 +14,6 @@
     {
         public TResponse Response { get; set; }
 
-        public RequestHandlerContext(IBus bus) : base(bus) { }
+        public RequestHandlerContext(IServiceBus bus) : base(bus) { }
     }
 }

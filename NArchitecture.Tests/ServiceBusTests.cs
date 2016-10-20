@@ -7,17 +7,17 @@ using Xunit;
 
 namespace NArchitecture.Tests
 {
-    public class BusTests
+    public class ServiceBusTests
     {
-        [Fact(DisplayName = "Bus routes the event to EventService")]
+        [Fact(DisplayName = "ServiceBus routes the event to EventService")]
         public async Task BusNotifyTest()
         {
-            var options = new BusOptions();
+            var options = new ServiceBusOptions();
             var events = A.Fake<IEventService>();
             var requests = A.Fake<IRequestService>();
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
-            var bus = new Bus(options, events, requests, validation, authorization);
+            var bus = new ServiceBus(options, events, requests, validation, authorization);
 
             var @event = A.Fake<IEvent>();
             await bus.Notify(@event);
@@ -25,15 +25,15 @@ namespace NArchitecture.Tests
             A.CallTo(() => events.Notify(bus, @event)).MustHaveHappened();
         }
 
-        [Fact(DisplayName = "Bus routes the request to RequestService")]
+        [Fact(DisplayName = "ServiceBus routes the request to RequestService")]
         public async Task BusRequestTest()
         {
-            var options = new BusOptions();
+            var options = new ServiceBusOptions();
             var events = A.Fake<IEventService>();
             var requests = A.Fake<IRequestService>();
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
-            var bus = new Bus(options, events, requests, validation, authorization);
+            var bus = new ServiceBus(options, events, requests, validation, authorization);
 
             var request = A.Fake<IRequest>();
             await bus.Request(request);
@@ -41,15 +41,15 @@ namespace NArchitecture.Tests
             A.CallTo(() => requests.Request(bus, request)).MustHaveHappened();
         }
 
-        [Fact(DisplayName = "Bus routes the request with response to RequestService")]
+        [Fact(DisplayName = "ServiceBus routes the request with response to RequestService")]
         public async Task BusRequestWithResponseTest()
         {
-            var options = new BusOptions();
+            var options = new ServiceBusOptions();
             var events = A.Fake<IEventService>();
             var requests = A.Fake<IRequestService>();
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
-            var bus = new Bus(options, events, requests, validation, authorization);
+            var bus = new ServiceBus(options, events, requests, validation, authorization);
 
             var request = A.Fake<IRequest<int>>();
             await bus.Request(request);
@@ -57,15 +57,15 @@ namespace NArchitecture.Tests
             A.CallTo(() => requests.Request(bus, request)).MustHaveHappened();
         }
 
-        [Fact(DisplayName = "Bus routes the validation to ValidationService")]
+        [Fact(DisplayName = "ServiceBus routes the validation to ValidationService")]
         public async Task BusValidationTest()
         {
-            var options = new BusOptions();
+            var options = new ServiceBusOptions();
             var events = A.Fake<IEventService>();
             var requests = A.Fake<IRequestService>();
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
-            var bus = new Bus(options, events, requests, validation, authorization);
+            var bus = new ServiceBus(options, events, requests, validation, authorization);
 
             var message = A.Fake<IMessage>();
             await bus.Validate(message);
@@ -73,15 +73,15 @@ namespace NArchitecture.Tests
             A.CallTo(() => validation.Validate(message)).MustHaveHappened();
         }
 
-        [Fact(DisplayName = "Bus routes the authorization to AuthorizationService")]
+        [Fact(DisplayName = "ServiceBus routes the authorization to AuthorizationService")]
         public async Task BusAuthorizationTest()
         {
-            var options = new BusOptions();
+            var options = new ServiceBusOptions();
             var events = A.Fake<IEventService>();
             var requests = A.Fake<IRequestService>();
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
-            var bus = new Bus(options, events, requests, validation, authorization);
+            var bus = new ServiceBus(options, events, requests, validation, authorization);
 
             var user = A.Fake<ClaimsPrincipal>();
             var message = A.Fake<IMessage>();

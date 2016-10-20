@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace NArchitecture
 {
-    public class Bus : IBus
+    public class ServiceBus : IServiceBus
     {
-        private readonly BusOptions options;
+        private readonly ServiceBusOptions options;
         private readonly IEventService eventService;
         private readonly IRequestService requestService;
         private readonly IValidationService validationService;
         private readonly IAuthorizationService authorizationService;
 
-        public Bus(
-            BusOptions options,
+        public ServiceBus(
+            ServiceBusOptions options,
             IEventService eventService, 
             IRequestService requestService,
             IValidationService validationService,

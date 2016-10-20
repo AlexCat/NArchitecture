@@ -14,7 +14,7 @@ namespace NArchitecture
             this.handlers = handlers.ToArray();
         }
 
-        public async Task Notify(IBus bus, IEvent @event)
+        public async Task Notify(IServiceBus bus, IEvent @event)
         {
             Guard.AgainstNull(nameof(bus), bus);
             Guard.AgainstNull(nameof(@event), @event);

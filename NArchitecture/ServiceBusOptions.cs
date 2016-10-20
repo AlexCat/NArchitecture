@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NArchitecture
 {
-    public class BusOptions
+    public class ServiceBusOptions
     {
         private IDictionary<Type, string> PolicyMap { get; } =
             new Dictionary<Type, string>();
@@ -12,7 +12,7 @@ namespace NArchitecture
         public RequestComposition Requests { get; }
         public AuthorizationComposition Authorization { get; }
 
-        public BusOptions()
+        public ServiceBusOptions()
         {
             Events = new EventComposition();
             Requests = new RequestComposition();

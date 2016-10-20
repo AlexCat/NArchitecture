@@ -11,7 +11,7 @@ namespace NArchitecture.Tests
         public async Task NotifyTest()
         {
             var handler = A.Fake<IEventHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var @event = A.Fake<IEvent>();
 
             var service = new DefaultEventService(new IEventHandler[] { handler });
@@ -25,7 +25,7 @@ namespace NArchitecture.Tests
         public async Task NotifyFailedTest()
         {
             var handler = A.Fake<IEventHandler>();
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var @event = A.Fake<IEvent>();
 
             var service = new DefaultEventService(new IEventHandler[] { handler });
@@ -41,7 +41,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "EventService correctly handles when there are no handlers")]
         public async Task NotifyWithoutHandlerTest()
         {
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
             var @event = A.Fake<IEvent>();
 
             var service = new DefaultEventService(new IEventHandler[0]);

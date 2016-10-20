@@ -8,12 +8,12 @@ namespace NArchitecture.Tests
     public class ServiceCollectionExtensionsTests
     {
         [Fact(DisplayName = "ServiceCollectionExtensions can add Bus")]
-        public void AddBusTest()
+        public void AddServiceBusTest()
         {
             var services = new ServiceCollection();
-            services.AddBus(options => { });
+            services.AddServiceBus(options => { });
             var provider = services.BuildServiceProvider();
-            Assert.NotNull(provider.GetService<IBus>());
+            Assert.NotNull(provider.GetService<IServiceBus>());
         }
 
         public class EventHandler : IEventHandler

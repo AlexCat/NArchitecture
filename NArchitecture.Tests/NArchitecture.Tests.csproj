@@ -74,8 +74,8 @@
   <ItemGroup>
     <Compile Include="AuthorizationPolicyTests.cs" />
     <Compile Include="AuthorizationTests.cs" />
-    <Compile Include="BusOptionsTests.cs" />
-    <Compile Include="BusTests.cs" />
+    <Compile Include="ServiceBusOptionsTests.cs" />
+    <Compile Include="ServiceBusTests.cs" />
     <Compile Include="DefaultRequestServiceTests.cs" />
     <Compile Include="DefaultEventServiceTests.cs" />
     <Compile Include="EventHandlerTests.cs" />

@@ -16,7 +16,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "ValidationService returns true if validation succeeds")]
         public async Task ValidateTest()
         {
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
 
             var service = new DefaultValidationService();
 
@@ -26,7 +26,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "ValidationService returns false if validation fails")]
         public async Task ValidateFailedTest()
         {
-            var bus = A.Fake<IBus>();
+            var bus = A.Fake<IServiceBus>();
 
             var service = new DefaultValidationService();
 
