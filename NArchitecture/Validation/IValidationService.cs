@@ -4,6 +4,6 @@ namespace NArchitecture
 {
     public interface IValidationService
     {
-        Task Validate(IMessage message);
+        Task Validate(IServiceBus bus, IMessage message);
     }
 }

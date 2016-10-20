@@ -2,15 +2,8 @@
 
 namespace NArchitecture
 {
-    public class EventHandlerContext
+    public class EventHandlerContext : BaseHandlerContext
     {
-        public IServiceBus ServiceBus { get; }
-        public ClaimsPrincipal User { get; }
-
-        public EventHandlerContext(IServiceBus bus, ClaimsPrincipal user)
-        {
-            ServiceBus = bus;
-            User = user;
-        }
+        public EventHandlerContext(IServiceBus bus, ClaimsPrincipal user) : base(bus, user) { }
     }
 }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseComposition.cs" />
+    <Compile Include="BaseHandlerContext.cs" />
     <Compile Include="ServiceBus.cs" />
     <Compile Include="ServiceBusOptions.cs" />
     <Compile Include="Events\EventHandlerContext.cs" />

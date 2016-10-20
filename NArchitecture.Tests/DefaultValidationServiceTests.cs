@@ -20,7 +20,7 @@ namespace NArchitecture.Tests
 
             var service = new DefaultValidationService();
 
-            await service.Validate(new ValidatableMessage { Name = "ValidatableMessage" });
+            await service.Validate(bus, new ValidatableMessage { Name = "ValidatableMessage" });
         }
 
         [Fact(DisplayName = "ValidationService returns false if validation fails")]
@@ -32,7 +32,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<ValidationException>(() =>
             {
-                return service.Validate(new ValidatableMessage());
+                return service.Validate(bus, new ValidatableMessage());
             });
         }
     }

@@ -72,7 +72,7 @@ namespace NArchitecture.Tests
             var message = A.Fake<IMessage>();
             await bus.Validate(message);
 
-            A.CallTo(() => validation.Validate(message)).MustHaveHappened();
+            A.CallTo(() => validation.Validate(bus, message)).MustHaveHappened();
         }
 
         [Fact(DisplayName = "ServiceBus routes the authorization to AuthorizationService")]
@@ -90,7 +90,7 @@ namespace NArchitecture.Tests
             options.AddPolicyFor(message.GetType(), "CustomPolicy");
             await bus.Authorize(user, message);
 
-            A.CallTo(() => authorization.Authorize(user, message, "CustomPolicy")).MustHaveHappened();
+            A.CallTo(() => authorization.Authorize(bus, user, message, "CustomPolicy")).MustHaveHappened();
         }
     }
 }

@@ -4,25 +4,24 @@ using System.Security.Claims;
 
 namespace NArchitecture
 {
-    public class AuthorizationHandlerContext
+    public class AuthorizationHandlerContext : BaseHandlerContext
     {
         private HashSet<IAuthorizationRequirement> pendingRequirements;
         private bool failCalled;
         private bool succeedCalled;
 
-        public AuthorizationHandlerContext(IEnumerable<IAuthorizationRequirement> requirements, ClaimsPrincipal user, IMessage message)
+        public AuthorizationHandlerContext(IServiceBus bus, ClaimsPrincipal user, IMessage message, IEnumerable<IAuthorizationRequirement> requirements) : base(bus, user)
         {
+            Guard.AgainstNull(nameof(message), message);
             Guard.AgainstNull(nameof(requirements), requirements);
 
-            Requirements = requirements;
-            User = user;
             Message = message;
+            Requirements = requirements;
             pendingRequirements = new HashSet<IAuthorizationRequirement>(requirements);
         }
 
         public virtual IEnumerable<IAuthorizationRequirement> Requirements { get; }
         public virtual IEnumerable<IAuthorizationRequirement> PendingRequirements { get { return pendingRequirements; } }
-        public virtual ClaimsPrincipal User { get; }
         public virtual IMessage Message { get; }
 
         public virtual bool HasSucceeded

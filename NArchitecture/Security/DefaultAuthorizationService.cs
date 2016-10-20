@@ -17,11 +17,14 @@ namespace NArchitecture
             this.handlers = handlers.ToArray();
         }
 
-        public async Task<bool> Authorize(ClaimsPrincipal user, IMessage message, IEnumerable<IAuthorizationRequirement> requirements)
+        public async Task<bool> Authorize(IServiceBus bus, ClaimsPrincipal user, IMessage message, IEnumerable<IAuthorizationRequirement> requirements)
         {
+            Guard.AgainstNull(nameof(bus), bus);
+            Guard.AgainstNull(nameof(user), user);
+            Guard.AgainstNull(nameof(message), message);
             Guard.AgainstNull(nameof(requirements), requirements);
 
-            var context = new AuthorizationHandlerContext(requirements, user, message);
+            var context = new AuthorizationHandlerContext(bus, user, message, requirements);
 
             foreach(var handler in handlers)
             {
@@ -31,8 +34,11 @@ namespace NArchitecture
             return context.HasSucceeded;
         }
 
-        public Task<bool> Authorize(ClaimsPrincipal user, IMessage message, string policyName)
+        public Task<bool> Authorize(IServiceBus bus, ClaimsPrincipal user, IMessage message, string policyName)
         {
+            Guard.AgainstNull(nameof(bus), bus);
+            Guard.AgainstNull(nameof(user), user);
+            Guard.AgainstNull(nameof(message), message);
             Guard.AgainstNull(nameof(policyName), policyName);
 
             var policy = options.GetPolicy(policyName);
@@ -41,7 +47,7 @@ namespace NArchitecture
                 throw new InvalidOperationException($"No policy found: {policyName}.");
             }
 
-            return Authorize(user, message, policy.Requirements);
+            return Authorize(bus, user, message, policy.Requirements);
         }
     }
 }

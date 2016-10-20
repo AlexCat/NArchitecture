@@ -6,7 +6,7 @@ namespace NArchitecture
 {
     public interface IAuthorizationService
     {
-        Task<bool> Authorize(ClaimsPrincipal user, IMessage message, IEnumerable<IAuthorizationRequirement> requirements);
-        Task<bool> Authorize(ClaimsPrincipal user, IMessage message, string policyName);
+        Task<bool> Authorize(IServiceBus bus, ClaimsPrincipal user, IMessage message, IEnumerable<IAuthorizationRequirement> requirements);
+        Task<bool> Authorize(IServiceBus bus, ClaimsPrincipal user, IMessage message, string policyName);
     }
 }

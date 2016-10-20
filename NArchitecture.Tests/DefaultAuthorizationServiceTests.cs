@@ -6,7 +6,7 @@ using Xunit;
 
 namespace NArchitecture.Tests
 {
-    public class AuthorizationTests
+    public class DefaultAuthorizationServiceTests
     {
         private class SuccessfulRequirement : IAuthorizationRequirement { }
 
@@ -24,6 +24,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "AuthorizationService returns true if handler succeeds")]
         public async Task SucceededRequirementTest()
         {
+            var bus = A.Fake<IServiceBus>();
             var user = A.Fake<ClaimsPrincipal>();
             var handler = new SuccessfulAuthorizationHandler();
             var requirement = new SuccessfulRequirement();
@@ -32,7 +33,7 @@ namespace NArchitecture.Tests
             options.AddPolicy("CustomPolicy", p => p.AddRequirements(requirement));
             var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[] { handler });
 
-            Assert.True(await service.Authorize(user, message, "CustomPolicy"));
+            Assert.True(await service.Authorize(bus, user, message, "CustomPolicy"));
         }
 
         private class EmptyRequirement : IAuthorizationRequirement { }
@@ -50,6 +51,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "AuthorizationService returns false if handler does not succeeds")]
         public async Task UnauthorizedRequirementTest()
         {
+            var bus = A.Fake<IServiceBus>();
             var user = A.Fake<ClaimsPrincipal>();
             var handler = new EmptyAuthorizationHandler();
             var requirement = new EmptyRequirement();
@@ -58,12 +60,13 @@ namespace NArchitecture.Tests
             options.AddPolicy("CustomPolicy", new AuthorizationPolicy(new IAuthorizationRequirement[] { requirement }));
             var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[] { handler });
 
-            Assert.False(await service.Authorize(user, message, "CustomPolicy"));
+            Assert.False(await service.Authorize(bus, user, message, "CustomPolicy"));
         }
 
         [Fact(DisplayName = "AuthorizationService throws exception if there is no policy")]
         public async Task NoRequirementTest()
         {
+            var bus = A.Fake<IServiceBus>();
             var user = A.Fake<ClaimsPrincipal>();
             var message = A.Fake<IMessage>();
             var options = new AuthorizationOptions();
@@ -71,7 +74,7 @@ namespace NArchitecture.Tests
 
             await Assert.ThrowsAsync<InvalidOperationException>(() =>
             {
-                return service.Authorize(user, message, "CustomPolicy");
+                return service.Authorize(bus, user, message, "CustomPolicy");
             });
         }
 
@@ -92,6 +95,7 @@ namespace NArchitecture.Tests
         [Fact(DisplayName = "AuthorizationService returns false if handler fails")]
         public async Task FailedRequirementTest()
         {
+            var bus = A.Fake<IServiceBus>();
             var user = A.Fake<ClaimsPrincipal>();
             var handler = new FailingAuthorizationHandler();
             var requirement = new FailingRequirement();
@@ -100,7 +104,7 @@ namespace NArchitecture.Tests
             options.AddPolicy("CustomPolicy", p => p.AddRequirements(requirement));
             var service = new DefaultAuthorizationService(options, new IAuthorizationHandler[] { handler });
 
-            Assert.False(await service.Authorize(user, message, "CustomPolicy"));
+            Assert.False(await service.Authorize(bus, user, message, "CustomPolicy"));
         }
     }
 }
