@@ -93,5 +93,21 @@ namespace NArchitecture.Tests
 
             A.CallTo(() => authorization.Authorize(bus, user, message, "CustomPolicy")).MustHaveHappened();
         }
+
+        [Fact(DisplayName = "ServiceBus authorizes messages without any policy")]
+        public async Task BusAuthorizationNoPolicyTest()
+        {
+            var options = new ServiceBusOptions();
+            var events = A.Fake<IEventService>();
+            var requests = A.Fake<IRequestService>();
+            var validation = A.Fake<IValidationService>();
+            var authorization = A.Fake<IAuthorizationService>();
+            var bus = new ServiceBus(options, events, requests, validation, authorization);
+
+            var user = A.Fake<ClaimsPrincipal>();
+            var message = A.Fake<IMessage>();
+            Assert.Equal(true, await bus.Authorize(user, message));
+            A.CallTo(() => authorization.Authorize(bus, user, message, A<string>.Ignored)).MustNotHaveHappened();
+        }
     }
 }
