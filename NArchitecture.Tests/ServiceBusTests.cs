@@ -68,11 +68,12 @@ namespace NArchitecture.Tests
             var validation = A.Fake<IValidationService>();
             var authorization = A.Fake<IAuthorizationService>();
             var bus = new ServiceBus(options, events, requests, validation, authorization);
+            var user = A.Fake<ClaimsPrincipal>();
 
             var message = A.Fake<IMessage>();
-            await bus.Validate(message);
+            await bus.Validate(user, message);
 
-            A.CallTo(() => validation.Validate(bus, message)).MustHaveHappened();
+            A.CallTo(() => validation.Validate(bus, user, message)).MustHaveHappened();
         }
 
         [Fact(DisplayName = "ServiceBus routes the authorization to AuthorizationService")]

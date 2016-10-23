@@ -9,6 +9,6 @@ namespace NArchitecture
         Task Notify(ClaimsPrincipal user, IEvent @event);
         Task Request(ClaimsPrincipal user, IRequest request);
         Task<TResponse> Request<TResponse>(ClaimsPrincipal user, IRequest<TResponse> request);
-        Task Validate(IMessage message);
+        Task Validate(ClaimsPrincipal user, IMessage message);
     }
 }

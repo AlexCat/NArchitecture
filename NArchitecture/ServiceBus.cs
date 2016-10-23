@@ -35,7 +35,14 @@ namespace NArchitecture
         public Task<bool> Authorize(ClaimsPrincipal user, IMessage message)
         {
             var policyName = options.GetPolicyFor(message.GetType());
-            return authorizationService.Authorize(this, user, message, policyName);
+            if (policyName != null)
+            {
+                return authorizationService.Authorize(this, user, message, policyName);
+            }
+            else
+            {
+                return Task.FromResult(true);
+            }
         }
 
         public Task Notify(ClaimsPrincipal user, IEvent @event)
@@ -53,9 +60,9 @@ namespace NArchitecture
             return requestService.Request<TResponse>(this, user, request);
         }
 
-        public Task Validate(IMessage message)
+        public Task Validate(ClaimsPrincipal user, IMessage message)
         {
-            return validationService.Validate(this, message);
+            return validationService.Validate(this, user, message);
         }
     }
 }
