@@ -11,7 +11,7 @@ namespace NArchitecture
             Guard.AgainstNull(nameof(requirements), requirements);
             if (requirements.Count() == 0)
             {
-                throw new InvalidOperationException("Policy needs at least one authorization requirement.");
+                throw new InvalidOperationException(Properties.Resources.PolicyHasNoRequirements);
             }
 
             Requirements = new List<IAuthorizationRequirement>(requirements).AsReadOnly();

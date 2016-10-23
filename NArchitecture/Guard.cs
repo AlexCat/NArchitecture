@@ -16,7 +16,8 @@ namespace NArchitecture
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException("Cannot be null or empty", argumentName);
+                string message = string.Format(Properties.Resources.ArgumentEmptyException, argumentName);
+                throw new ArgumentException(message, argumentName);
             }
         }
     }

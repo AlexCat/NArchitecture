@@ -44,7 +44,8 @@ namespace NArchitecture
             var policy = options.GetPolicy(policyName);
             if (policy == null)
             {
-                throw new InvalidOperationException($"No policy found: {policyName}.");
+                string exMessage = string.Format(Properties.Resources.PolicyNotFound, policyName);
+                throw new InvalidOperationException(exMessage);
             }
 
             return Authorize(bus, user, message, policy.Requirements);

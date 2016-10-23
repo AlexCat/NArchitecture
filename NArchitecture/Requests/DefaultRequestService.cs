@@ -49,7 +49,7 @@ namespace NArchitecture
             }
             catch(Exception ex)
             {
-                throw new InvalidOperationException("There is no or too many handlers to handle the request.", ex);
+                throw new InvalidOperationException(Properties.Resources.NoneOrTooManyRequestHandlers, ex);
             }
         }
     }

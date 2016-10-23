@@ -15,7 +15,8 @@ namespace NArchitecture
         {
             if (!CanHandle(request))
             {
-                throw new ArgumentException($"Cannot handle request of type {request.GetType().Name}", nameof(request));
+                string message = string.Format(Properties.Resources.CannotHandleRequest, request.GetType().Name);
+                throw new ArgumentException(message, nameof(request));
             }
 
             return Handle(context, (TRequest)request);
@@ -36,7 +37,8 @@ namespace NArchitecture
         {
             if (!CanHandle(request))
             {
-                throw new ArgumentException($"Cannot handle request of type {request.GetType().Name}", nameof(request));
+                string message = string.Format(Properties.Resources.CannotHandleRequest, request.GetType().Name);
+                throw new ArgumentException(message, nameof(request));
             }
 
             await Handle((RequestHandlerContext<TResponse>)context, (TRequest)request);
